@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/login">
+
+    <fragment
+        android:id="@+id/login"
+        android:name="com.moviles.proyecto1.view.fragment.Login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_login_to_homeInventory"
+            app:destination="@id/homeInventory" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeInventory"
+        android:name="com.moviles.proyecto1.view.fragment.HomeInventory"
+        android:label="HomeInventory"
+        tools:layout="@layout/fragment_home_inventory" >
+        <action
+            android:id="@+id/action_homeInventory_to_detailProduct"
+            app:destination="@id/detailProduct" />
+        <action
+            android:id="@+id/action_homeInventory_to_addProduct"
+            app:destination="@id/addProduct" />
+    </fragment>
+    <fragment
+        android:id="@+id/addProduct"
+        android:name="com.moviles.proyecto1.view.fragment.AddProduct"
+        android:label="fragment_add_product"
+        tools:layout="@layout/fragment_add_product" />
+    <fragment
+        android:id="@+id/detailProduct"
+        android:name="com.moviles.proyecto1.view.fragment.DetailProduct"
+        android:label="fragment_detail_product"
+        tools:layout="@layout/fragment_detail_product" >
+        <action
+            android:id="@+id/action_detailProduct_to_editProduct"
+            app:destination="@id/editProduct" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProduct"
+        android:name="com.moviles.proyecto1.view.fragment.EditProduct"
+        android:label="fragment_edit_product"
+        tools:layout="@layout/fragment_edit_product" />
+</navigation>
