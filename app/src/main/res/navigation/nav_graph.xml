@@ -25,12 +25,19 @@
         <action
             android:id="@+id/action_homeInventory_to_addProduct"
             app:destination="@id/addProduct" />
+        <action
+            android:id="@+id/action_homeInventory_to_login"
+            app:destination="@id/login" />
     </fragment>
     <fragment
         android:id="@+id/addProduct"
         android:name="com.moviles.proyecto1.view.fragment.AddProduct"
         android:label="fragment_add_product"
-        tools:layout="@layout/fragment_add_product" />
+        tools:layout="@layout/fragment_add_product" >
+        <action
+            android:id="@+id/action_addProduct_to_homeInventory"
+            app:destination="@id/homeInventory" />
+    </fragment>
     <fragment
         android:id="@+id/detailProduct"
         android:name="com.moviles.proyecto1.view.fragment.DetailProduct"
@@ -39,10 +46,17 @@
         <action
             android:id="@+id/action_detailProduct_to_editProduct"
             app:destination="@id/editProduct" />
+        <action
+            android:id="@+id/action_detailProduct_to_homeInventory"
+            app:destination="@id/homeInventory" />
     </fragment>
     <fragment
         android:id="@+id/editProduct"
         android:name="com.moviles.proyecto1.view.fragment.EditProduct"
         android:label="fragment_edit_product"
-        tools:layout="@layout/fragment_edit_product" />
+        tools:layout="@layout/fragment_edit_product" >
+        <action
+            android:id="@+id/action_editProduct_to_detailProduct"
+            app:destination="@id/detailProduct" />
+    </fragment>
 </navigation>
