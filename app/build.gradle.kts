@@ -7,7 +7,6 @@ plugins {
 android {
   namespace = "com.moviles.proyecto1"
   compileSdk = 36
-  buildFeatures {dataBinding = true}
 
   defaultConfig {
     applicationId = "com.moviles.proyecto1"
@@ -32,6 +31,11 @@ android {
   kotlinOptions {
     jvmTarget = "11"
   }
+
+  buildFeatures {
+    dataBinding = true
+  }
+
 }
 
 dependencies {
