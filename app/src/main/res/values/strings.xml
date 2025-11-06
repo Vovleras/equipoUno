@@ -10,4 +10,5 @@
     <string name="cantidad_disponible">Cantidad Disponible</string>
     <string name="precio_unidad">Precio Unidad:</string>
     <string name="producto">Producto</string>
+    <string name="exit_button">Exit Button</string>
 </resources>
