@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moviles.proyecto1.R
@@ -22,6 +23,7 @@ class HomeInventory : Fragment() {
         //navigationHomeInventoryToDetails()
         navigationHomeInventoryToAdd()
         listInventory()
+        toolBar()
         binding.lifecycleOwner = this
         return binding.root
     }
@@ -43,6 +45,19 @@ class HomeInventory : Fragment() {
         binding.btnAdd.setOnClickListener {
             findNavController().navigate(R.id.action_homeInventory_to_addProduct)
         }
+    }
+
+    private fun toolBar(){
+        binding.homeToolbar.title = "Inventario"
+        binding.homeToolbar.navIcon = true
+        binding.homeToolbar.exitIcon = true
+        binding.homeToolbar.btnExit.setOnClickListener {
+            exit()
+        }
+    }
+
+    private fun exit() {
+        Toast.makeText(context,"Salir", Toast.LENGTH_SHORT).show()
     }
 
 }

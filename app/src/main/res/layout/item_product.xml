@@ -5,7 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="8dp">
 
         <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/cvProducts"
@@ -22,13 +22,13 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="10dp">
+                android:padding="8dp">
 
                 <TextView
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
+                    android:layout_margin="12dp"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:fontFamily="sans-serif"
@@ -40,8 +40,8 @@
                     android:id="@+id/tvID"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:paddingBottom="15dp"
+                    android:layout_margin="12dp"
+                    android:paddingBottom="12dp"
                     android:textSize="12sp"
                     android:fontFamily="sans-serif"
                     card_view:layout_constraintTop_toBottomOf="@id/tvName"
