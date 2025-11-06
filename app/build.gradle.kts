@@ -89,4 +89,7 @@ dependencies {
 
   //Glide
   implementation ("com.github.bumptech.glide:glide:4.12.0")
+
+  // Lottie (Json Animations)
+  implementation("com.airbnb.android:lottie:6.4.0")
 }
