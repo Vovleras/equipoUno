@@ -17,6 +17,8 @@ class DetailProduct : Fragment() {
     ): View? {
         binding = FragmentDetailProductBinding.inflate(inflater)
         navigationDetailToEdit()
+        setupToolbar()
+        navigateEdit()
         binding.lifecycleOwner = this
         return binding.root
     }
@@ -26,4 +28,20 @@ class DetailProduct : Fragment() {
             findNavController().navigate(R.id.action_detailProduct_to_editProduct)
         }
     }
+    private fun setupToolbar(){
+        binding.contentToolbar.title = "Detalle del Producto"
+        binding.contentToolbar.toolbar.setNavigationOnClickListener {
+            findNavController().navigate(R.id.action_detailProduct_to_homeInventory)
+        }
+
+    }
+    private fun navigateEdit(){
+
+        binding.ibEditProduct.setOnClickListener {
+            findNavController().navigate(R.id.action_detailProduct_to_editProduct)
+        }
+
+    }
+
 }
+

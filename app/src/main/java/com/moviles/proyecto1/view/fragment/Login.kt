@@ -16,7 +16,7 @@ class Login : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentLoginBinding.inflate(inflater)
-        //navigationLoginToHomeInventory()
+        navigationLoginToHomeInventory()
         binding.lifecycleOwner = this
         return binding.root
     }
@@ -26,4 +26,10 @@ class Login : Fragment() {
             findNavController().navigate(R.id.action_login_to_homeInventory)
         }
     }*/
+
+    private fun navigationLoginToHomeInventory() {
+        binding.loginInventory.setOnClickListener {
+            findNavController().navigate(R.id.action_login_to_homeInventory)
+        }
+    }
 }
