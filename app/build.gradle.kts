@@ -40,6 +40,7 @@ android {
 
 dependencies {
 
+  implementation("com.google.android.material:material:1.12.0")
   implementation(libs.androidx.navigation.fragment.ktx)
   implementation(libs.androidx.navigation.ui.ktx)
   val navVersion = "2.7.3"
@@ -88,4 +89,7 @@ dependencies {
 
   //Glide
   implementation ("com.github.bumptech.glide:glide:4.12.0")
+
+  // Lottie (Json Animations)
+  implementation("com.airbnb.android:lottie:6.4.0")
 }

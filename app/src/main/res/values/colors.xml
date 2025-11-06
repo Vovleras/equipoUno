@@ -4,4 +4,9 @@
   <color name="white">#FFFFFFFF</color>
   <color name="orange">#e7522e</color>
   <color name="blackBackground">#CC000000</color>
+  <color name="black_specific">#CC000000</color>
+  <color name="light_gray">#424242</color>
+  <color name="orange">#FA8523</color>
+  <color name="red_orange">#e7522e</color>
+  <color name="dark_gray">#1e282d</color>
 </resources>

@@ -22,7 +22,7 @@ class DetailProduct : Fragment() {
     }
 
     private fun navigationDetailToEdit(){
-        binding.btnEdit.setOnClickListener {
+        binding.btnEliminar.setOnClickListener {
             findNavController().navigate(R.id.action_detailProduct_to_editProduct)
         }
     }
