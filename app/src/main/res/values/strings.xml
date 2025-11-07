@@ -14,4 +14,5 @@
     <string name="subtitle_biometrics">Ingrese su huella digital</string>
     <string name="description_biometrics">Toque el sensor de huellas digitales</string>
     <string name="cancelar">Cancelar</string>
+    <string name="exit_button">Exit Button</string>
 </resources>
