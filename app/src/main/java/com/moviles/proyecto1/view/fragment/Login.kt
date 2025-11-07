@@ -31,15 +31,8 @@ class Login : Fragment() {
     ): View? {
         binding = FragmentLoginBinding.inflate(inflater)
         binding.lifecycleOwner = this
-        navigationLoginToHomeInventory()
         checkUserSession()
         return binding.root
-    }
-
-    private fun navigationLoginToHomeInventory() {
-        binding.loginInventory.setOnClickListener {
-            findNavController().navigate(R.id.action_login_to_homeInventory)
-        }
     }
 
     // Funciones para guardar y verificar la sesión del usuario
