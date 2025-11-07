@@ -19,14 +19,12 @@ import android.widget.Toast
 
 class Login : Fragment() {
     private lateinit var binding: FragmentLoginBinding
-    private lateinit var biometricPrompt: BiometricPrompt
 
-    // --- Start of Fix ---
-    // 1. Define the BiometricAuthListener interface
-    interface BiometricAuthListener {
-        fun onBiometricAuthenticateSuccess(result: BiometricPrompt.AuthenticationResult)
-        fun onBiometricAuthenticateError(errorCode: Int, errorMessage: String)
+    companion object {
+        private const val PREFS_NAME = "user_session"
+        private const val KEY_IS_LOGGED_IN = "is_logged_in"
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,7 +32,7 @@ class Login : Fragment() {
         binding = FragmentLoginBinding.inflate(inflater)
         binding.lifecycleOwner = this
         navigationLoginToHomeInventory()
-        biometricEvent()
+        checkUserSession()
         return binding.root
     }
 
@@ -44,12 +42,22 @@ class Login : Fragment() {
         }
     }
 
-    //setting up a biometric
+    // Funciones para guardar y verificar la sesión del usuario
 
+    private fun saveUserSession() {
+        val sharedPref = requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putBoolean(KEY_IS_LOGGED_IN, true)
+            apply()
+        }
+    }
 
-    /*
-     * Check whether the Device is Capable of the Biometric
-     */
+    private fun isUserLoggedIn(): Boolean {
+        val sharedPref = requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        return sharedPref.getBoolean(KEY_IS_LOGGED_IN, false)
+    }
+
+    // Verificar si el dispositivo tiene capacidad biométrica
     private fun hasBiometricCapability(context: Context): Int {
         return BiometricManager.from(context).canAuthenticate(BIOMETRIC_STRONG)
     }
@@ -67,65 +75,62 @@ class Login : Fragment() {
 
     }
 
-    // Initiate the Biometric Prompt
+    // Iniciar BiometricPrompt
     private fun initBiometricPrompt(
-        activity: AppCompatActivity,
-        listener: BiometricAuthListener
+        activity: AppCompatActivity
     ): BiometricPrompt {
         val executor = ContextCompat.getMainExecutor(activity)
         val callback = object : BiometricPrompt.AuthenticationCallback() {
             override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                 super.onAuthenticationError(errorCode, errString)
-                listener.onBiometricAuthenticateError(errorCode, errString.toString())
+                Toast.makeText(requireContext(), "Error: $errString", Toast.LENGTH_SHORT).show()
+                binding.lottieFingerprint.isEnabled = true
             }
 
             override fun onAuthenticationFailed() {
                 super.onAuthenticationFailed()
+                binding.lottieFingerprint.isEnabled = true
             }
 
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
-                listener.onBiometricAuthenticateSuccess(result)
+                saveUserSession()
+                binding.lottieFingerprint.isEnabled = true
                 findNavController().navigate(R.id.action_login_to_homeInventory)
             }
         }
         return BiometricPrompt(activity, executor, callback)
     }
 
-    // Display the Biometric Prompt
+    // Mostrar la ventana de autenticación biométrica
     fun showBiometricPrompt(
-        activity: AppCompatActivity,
-        listener: BiometricAuthListener,
-        cryptoObject: BiometricPrompt.CryptoObject? = null,
+        activity: AppCompatActivity
     ) {
         val promptInfo = setBiometricPromptInfo()
-
-        val biometricPrompt = initBiometricPrompt(activity, listener)
+        val biometricPrompt = initBiometricPrompt(activity)
         biometricPrompt.apply {
-            if (cryptoObject == null) authenticate(promptInfo)
-            else authenticate(promptInfo, cryptoObject)
+            authenticate(promptInfo)
         }
     }
-    //function to show biometric prompt
+
+    // Evento para la imágen dinámica de autenticación biométrica
     private fun biometricEvent() {
         if (isBiometricReady(requireContext())) {
             binding.lottieFingerprint.setOnClickListener {
-                showBiometricPrompt(
-                    activity = requireActivity() as AppCompatActivity,
-                    listener = object : BiometricAuthListener {
-                        override fun onBiometricAuthenticateSuccess(result: BiometricPrompt.AuthenticationResult) {
-                            // Already handled in initBiometricPrompt
-                        }
-
-                        override fun onBiometricAuthenticateError(errorCode: Int, errorMessage: String) {
-                            Toast.makeText(requireContext(), "Authentication error: $errorMessage", Toast.LENGTH_SHORT).show()
-                        }
-                    },
-                    cryptoObject = null,
-                )
+                binding.lottieFingerprint.isEnabled = false
+                showBiometricPrompt(requireActivity() as AppCompatActivity)
             }
         } else {
             Toast.makeText(requireContext(), "No biometric feature perform on this device", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun checkUserSession() {
+        if (isUserLoggedIn()) {
+            findNavController().navigate(R.id.action_login_to_homeInventory)
+        }
+        else{
+            biometricEvent()
         }
     }
 
