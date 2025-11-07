@@ -6,6 +6,7 @@ import com.moviles.proyecto1.R
 import androidx.recyclerview.widget.RecyclerView
 import com.moviles.proyecto1.databinding.ItemProductBinding
 import com.moviles.proyecto1.model.Inventory
+import java.util.Locale
 
 
 class InventoryViewHolder(binding: ItemProductBinding, navController: NavController):
@@ -14,9 +15,11 @@ class InventoryViewHolder(binding: ItemProductBinding, navController: NavControl
     val bindingItem = binding
     val navController = navController
     fun setItemInventory(inventory: Inventory) {
+
+        val localeES = Locale.Builder().setLanguageTag("es-CO").build()
         bindingItem.tvName.text = inventory.name
         bindingItem.tvID.text = "id: ${inventory.id.toString()}"
-        bindingItem.tvPrice.text = "$ ${inventory.price}"
+        bindingItem.tvPrice.text = String.format(localeES,"\$%,.2f", inventory.price)
         //bindingItem.tvQuantity.text = "${inventory.quantity}"
 
         bindingItem.cvProducts.setOnClickListener {
