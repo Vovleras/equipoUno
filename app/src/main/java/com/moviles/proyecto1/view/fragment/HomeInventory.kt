@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.moviles.proyecto1.R
@@ -26,6 +27,14 @@ class HomeInventory : Fragment() {
         toolBar()
         binding.lifecycleOwner = this
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            requireActivity().moveTaskToBack(true)
+        }
     }
 
     private fun listInventory() {
@@ -57,7 +66,8 @@ class HomeInventory : Fragment() {
     }
 
     private fun exit() {
-        Toast.makeText(context,"Salir", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context,"Sesión Cerrada", Toast.LENGTH_SHORT).show()
+        findNavController().navigate(R.id.action_homeInventory_to_login)
     }
 
 }
