@@ -23,9 +23,15 @@ class HomeInventory : Fragment() {
     ): View? {
         binding = FragmentHomeInventoryBinding.inflate(inflater)
         //navigationHomeInventoryToDetails()
-        navigationHomeInventoryToAdd()
-        listInventory()
-        toolBar()
+        if (verifySession()) {
+            navigationHomeInventoryToAdd()
+            listInventory()
+            toolBar()
+        } else {
+            Toast.makeText(context,"No ha iniciado sesión", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_homeInventory_to_login)
+        }
+
         binding.lifecycleOwner = this
         return binding.root
     }
@@ -74,6 +80,11 @@ class HomeInventory : Fragment() {
         }
         Toast.makeText(context,"Sesión Cerrada", Toast.LENGTH_SHORT).show()
         findNavController().navigate(R.id.action_homeInventory_to_login)
+    }
+
+    private fun verifySession(): Boolean {
+        val session = requireActivity().getSharedPreferences("user_session", Context.MODE_PRIVATE)
+        return session.getBoolean("is_logged_in", false)
     }
 
 }
