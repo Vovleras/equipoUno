@@ -13,6 +13,7 @@ import com.moviles.proyecto1.R
 import com.moviles.proyecto1.databinding.FragmentHomeInventoryBinding
 import com.moviles.proyecto1.model.Inventory
 import com.moviles.proyecto1.view.adapter.RecyclerAdapter
+import android.content.Context
 
 class HomeInventory : Fragment() {
     private lateinit var binding: FragmentHomeInventoryBinding
@@ -66,6 +67,11 @@ class HomeInventory : Fragment() {
     }
 
     private fun exit() {
+        val sharedPref = requireActivity().getSharedPreferences("user_session", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            clear()
+            apply()
+        }
         Toast.makeText(context,"Sesión Cerrada", Toast.LENGTH_SHORT).show()
         findNavController().navigate(R.id.action_homeInventory_to_login)
     }
