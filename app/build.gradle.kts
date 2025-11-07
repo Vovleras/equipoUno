@@ -92,4 +92,7 @@ dependencies {
 
   // Lottie (Json Animations)
   implementation("com.airbnb.android:lottie:6.4.0")
+
+  // Biometric Authentication
+  implementation("androidx.biometric:biometric:1.1.0")
 }

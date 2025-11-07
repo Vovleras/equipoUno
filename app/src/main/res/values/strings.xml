@@ -10,5 +10,9 @@
     <string name="cantidad_disponible">Cantidad Disponible</string>
     <string name="precio_unidad">Precio Unidad:</string>
     <string name="producto">Producto</string>
+    <string name="tittle_biometrics">Autenticación con biometría</string>
+    <string name="subtitle_biometrics">Ingrese su huella digital</string>
+    <string name="description_biometrics">Toque el sensor de huellas digitales</string>
+    <string name="cancelar">Cancelar</string>
     <string name="exit_button">Exit Button</string>
 </resources>
