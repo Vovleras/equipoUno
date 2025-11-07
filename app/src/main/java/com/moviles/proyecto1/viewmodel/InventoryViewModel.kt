@@ -72,12 +72,12 @@ class InventoryViewModel(application: Application): AndroidViewModel(application
         }
     }
 
-    fun totalProducto(price: Int, quantity: Int): Double {
+    fun totalProduct(price: Int, quantity: Int): Double {
         val total = price * quantity
         return total.toDouble()
     }
 
-    fun calcularTotalInventario(): Double {
+    fun calculateTotalInventory(): Double {
         val inventary = _listInventory.value ?: mutableListOf()
         var total = 0.0
         for (item in inventary) {
