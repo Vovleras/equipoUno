@@ -48,10 +48,7 @@ class AddProduct : Fragment() {
 
         val btnGuardar = binding.btnGuardar
 
-        val areFilled = !codigo.isNullOrEmpty() &&
-                !nombre.isNullOrEmpty() &&
-                !precio.isNullOrEmpty() &&
-                !cantidad.isNullOrEmpty()
+        val areFilled = !codigo.isNullOrEmpty() && !nombre.isNullOrEmpty() && !precio.isNullOrEmpty() && !cantidad.isNullOrEmpty()
 
         btnGuardar.apply {
             isEnabled = areFilled
