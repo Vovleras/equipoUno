@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:description="App widget"
+    android:description="@string/descWidget"
     android:minWidth="315dp"
     android:minHeight="140dp"
     android:targetCellHeight="1"
