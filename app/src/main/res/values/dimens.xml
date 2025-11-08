@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="widget_title_text_size">17sp</dimen>
+    <dimen name="widget_subtitle_text_size">17sp</dimen>
+    <dimen name="widget_price_text_size">17sp</dimen>
+    <dimen name="widget_icon_size">25dp</dimen>
+    <dimen name="widget_logo_width">50dp</dimen>
+    <dimen name="widget_logo_height">60dp</dimen>
+</resources>
