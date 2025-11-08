@@ -35,6 +35,12 @@ class InventoryRepository (val context: Context) {
         }
     }
 
+    suspend fun calculateTotalInventory(): Float {
+        return withContext(Dispatchers.IO) {
+            inventoryDao.calculateTotalInventory()
+        }
+    }
+
     suspend fun updateTotalPerProduct(productID: Int, productPrice: Float, productQuantity: Int):Float{
         val total = productQuantity * productPrice
         withContext(Dispatchers.IO) {
