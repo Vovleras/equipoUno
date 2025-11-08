@@ -10,4 +10,5 @@ data class Inventory(
     val id: Int = 0,
     val name: String,
     val price: Float,
-    val quantity: Int ): Serializable
+    val quantity: Int,
+    val total: Float? = null ): Serializable

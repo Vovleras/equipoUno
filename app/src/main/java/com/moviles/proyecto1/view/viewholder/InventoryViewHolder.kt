@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.moviles.proyecto1.databinding.ItemProductBinding
 import com.moviles.proyecto1.model.Inventory
 import java.util.Locale
+import android.util.Log
 
 
 class InventoryViewHolder(binding: ItemProductBinding, navController: NavController):
