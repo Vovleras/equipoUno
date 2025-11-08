@@ -22,4 +22,7 @@ interface InventoryDao {
 
     @Update
     suspend fun updateInventory(inventory: Inventory)
+
+    @Query("SELECT SUM(price * quantity) FROM Inventory")
+    suspend fun calculateTotalInventory(): Float
 }

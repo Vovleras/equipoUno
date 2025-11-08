@@ -32,4 +32,11 @@ class InventoryRepository (val context: Context) {
             inventoryDao.updateInventory(inventory)
         }
     }
+
+    suspend fun calculateTotalInventory(): Float {
+        return withContext(Dispatchers.IO) {
+            inventoryDao.calculateTotalInventory()
+        }
+    }
+
 }

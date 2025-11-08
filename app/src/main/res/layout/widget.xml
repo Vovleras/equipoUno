@@ -1,7 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:backgroundTint="@color/black_specific"
     style="@style/Theme.InventoryWidget.AppWidgetContainer"
     >
 
@@ -23,7 +22,7 @@
         android:text="@string/Inventory"
         android:textColor="@color/red_orange"
         android:textStyle="bold"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:layout_below="@+id/widgetLogo"
     />
 
@@ -37,18 +36,56 @@
         android:textStyle="bold"
         android:textColor="@color/white"
         android:layout_toStartOf="@id/iseye"
+        android:textSize="16sp"
     />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/iseye"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/eye"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/eye"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="20dp"
-
     />
+
+    <TextView
+        android:id="@+id/tvprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:text="$ ****"
+        android:layout_below="@id/iseye"
+        android:layout_alignParentEnd="true"
+        android:textSize="16sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+    />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_regular"
+        android:text="Gestionar inventario"
+        android:layout_marginEnd="10dp"
+        android:textStyle="normal"
+        android:textColor="@color/white"
+        android:layout_below="@id/tvprice"
+        android:layout_toStartOf="@id/ivsets"
+        android:textSize="16sp"
+    />
+
+    <ImageButton
+        android:id="@+id/ivsets"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/settings"
+        android:layout_below="@id/tvprice"
+        android:layout_alignParentEnd="true"
+    />
+
+
 
 
 
