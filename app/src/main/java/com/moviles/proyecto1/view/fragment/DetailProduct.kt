@@ -13,6 +13,7 @@ import com.moviles.proyecto1.databinding.FragmentDetailProductBinding
 import com.moviles.proyecto1.viewmodel.InventoryViewModel
 import kotlin.getValue
 import com.moviles.proyecto1.model.Inventory
+import com.moviles.proyecto1.view.dialog.DialogStandard.Companion.showDialog
 
 class DetailProduct : Fragment() {
     private lateinit var binding: FragmentDetailProductBinding
@@ -41,8 +42,13 @@ class DetailProduct : Fragment() {
         val inventory = getBundle()
         inventory?.let { inv ->
             binding.btnEliminar.setOnClickListener {
-                inventoryViewModel.deleteProduct(inv)
-                findNavController().navigate(R.id.action_detailProduct_to_homeInventory)
+
+
+                showDialog(requireContext()) {
+                    inventoryViewModel.deleteProduct(inventory)
+                    findNavController().navigate(R.id.action_detailProduct_to_homeInventory)
+                }.show()
+
             }
         }
     }
@@ -102,6 +108,8 @@ class DetailProduct : Fragment() {
             binding.tvValorTotal.text = "$${"%.2f".format(total)}"
         }
     }
+
+
 
 }
 
