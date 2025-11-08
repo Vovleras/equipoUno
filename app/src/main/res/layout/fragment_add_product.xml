@@ -8,13 +8,13 @@
         android:layout_height="match_parent"
         android:fillViewport="true"
         tools:context=".view.fragment.AddProduct"
-        android:background="@color/black_specific">
+        android:background="@color/black_specific"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".view.fragment.AddProduct"
-            android:background="@color/black_specific"
 
             >
 
@@ -26,6 +26,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
                 />
 
 
