@@ -1,6 +1,7 @@
 package com.moviles.proyecto1.view.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,8 @@ import com.moviles.proyecto1.viewmodel.InventoryViewModel
 import kotlin.getValue
 import com.moviles.proyecto1.model.Inventory
 import com.moviles.proyecto1.view.dialog.DialogStandard.Companion.showDialog
+
+
 
 class DetailProduct : Fragment() {
     private lateinit var binding: FragmentDetailProductBinding
@@ -38,19 +41,26 @@ class DetailProduct : Fragment() {
         return binding.root
     }
 
-    private fun deleteProduct(){
+    private fun deleteProduct() {
         val inventory = getBundle()
+        val sizeBefore = 0
         inventory?.let { inv ->
             binding.btnEliminar.setOnClickListener {
-
+                val sizeBefore = inventoryViewModel.listInventory.value?.size ?: 0
+                Log.e("DetailProduct", "Tamaño antes de eliminar: $sizeBefore")
                 showDialog(requireContext()) {
-                    inventoryViewModel.deleteProduct(inventory)
-                    findNavController().navigate(R.id.action_detailProduct_to_homeInventory)
+                    inventoryViewModel.deleteProduct(inv)
                 }.show()
-
+            }
+        }
+        inventoryViewModel.deleteMessage.observe(viewLifecycleOwner) { msg ->
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+            if (msg.contains("eliminado", ignoreCase = true)) {
+                findNavController().navigate(R.id.action_detailProduct_to_homeInventory)
             }
         }
     }
+
 
 
     private fun showInfo(){
@@ -69,8 +79,7 @@ class DetailProduct : Fragment() {
     }
 
     private fun getBundle(): Inventory? {
-        val inventory = arguments?.getSerializable("clave") as Inventory ?
-        return  inventory
+        return arguments?.getSerializable("clave") as? Inventory
     }
 
 
@@ -98,13 +107,8 @@ class DetailProduct : Fragment() {
     }
 
     private fun setupObservers() {
-
-        inventoryViewModel.deleteMessage.observe(viewLifecycleOwner) { msg ->
-            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-        }
-
         inventoryViewModel.totalPerProduct.observe(viewLifecycleOwner) { total ->
-            binding.tvValorTotal.text = "$${"%.2f".format(total)}"
+            binding.tvValorTotal.text = String.format("$%.2f", total)
         }
     }
 
