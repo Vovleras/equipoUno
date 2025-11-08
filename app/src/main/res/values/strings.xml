@@ -23,4 +23,6 @@
     <string name="widgetIn">¿Cuánto tengo de inventario?</string>
     <string name="default_price_w">$ ****</string>
     <string name="g_inv">Gestionar inventario</string>
+    <string name="editar">Editar</string>
+    <string name="id">Id:</string>
 </resources>
