@@ -39,7 +39,8 @@
             android:textColorHint="@color/white"
             app:counterTextColor="@color/white"
             app:boxBackgroundMode="outline"
-            app:boxStrokeColor="@color/white"
+            android:backgroundTint="@color/light_gray"
+            app:boxStrokeColor="@color/textinput_stroke_colors"
             app:hintTextColor="@color/white"
             app:counterOverflowTextColor="@color/white">
 
@@ -65,7 +66,7 @@
             android:hint="@string/nombre_articulo"
             android:textColorHint="@color/white"
             app:boxBackgroundMode="outline"
-            app:boxStrokeColor="@color/white"
+            app:boxStrokeColor="@color/textinput_stroke_colors"
             app:hintTextColor="@color/white"
             app:counterOverflowTextColor="@color/white"
             android:layout_marginBottom="15dp"
@@ -95,7 +96,7 @@
             android:hint="@string/precio"
             android:textColorHint="@color/white"
             app:boxBackgroundMode="outline"
-            app:boxStrokeColor="@color/white"
+            app:boxStrokeColor="@color/textinput_stroke_colors"
             app:hintTextColor="@color/white"
             app:counterOverflowTextColor="@color/white"
             >
@@ -124,7 +125,7 @@
             android:hint="@string/cantidad"
             android:textColorHint="@color/white"
             app:boxBackgroundMode="outline"
-            app:boxStrokeColor="@color/white"
+            app:boxStrokeColor="@color/textinput_stroke_colors"
             app:hintTextColor="@color/white"
             app:counterOverflowTextColor="@color/white">
 
