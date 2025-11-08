@@ -1,7 +1,57 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/black_specific">
+    android:backgroundTint="@color/black_specific"
+    style="@style/Theme.InventoryWidget.AppWidgetContainer"
+    >
+
+    <ImageView
+        android:id="@+id/widgetLogo"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:src="@drawable/icon_widget"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+    />
+
+    <TextView
+        android:id="@+id/tvwidget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/Inventory"
+        android:textColor="@color/red_orange"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        android:layout_below="@+id/widgetLogo"
+    />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="¿Cuánto tengo de inventario?"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="10dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_toStartOf="@id/iseye"
+    />
+
+    <ImageView
+        android:id="@+id/iseye"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/eye"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+
+    />
+
+
+
 
     
 

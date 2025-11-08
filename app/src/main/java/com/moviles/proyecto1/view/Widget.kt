@@ -1,4 +1,6 @@
 package com.moviles.proyecto1.view
 
-class Widget {
+import android.appwidget.AppWidgetProvider
+
+class Widget : AppWidgetProvider() {
 }
