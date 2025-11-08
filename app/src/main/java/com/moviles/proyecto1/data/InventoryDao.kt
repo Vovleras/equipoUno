@@ -22,4 +22,7 @@ interface InventoryDao {
 
     @Update
     suspend fun updateInventory(inventory: Inventory)
+
+    @Query("UPDATE Inventory SET total = :total WHERE id = :id")
+    suspend fun updateTotal(id: Int, total: Float?)
 }
