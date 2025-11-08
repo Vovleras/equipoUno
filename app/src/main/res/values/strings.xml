@@ -15,4 +15,5 @@
     <string name="description_biometrics">Toque el sensor de huellas digitales</string>
     <string name="cancelar">Cancelar</string>
     <string name="exit_button">Exit Button</string>
+    <string name="descWidget">App Widget</string>
 </resources>
