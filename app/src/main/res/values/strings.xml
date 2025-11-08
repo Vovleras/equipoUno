@@ -15,5 +15,11 @@
     <string name="description_biometrics">Toque el sensor de huellas digitales</string>
     <string name="cancelar">Cancelar</string>
     <string name="exit_button">Exit Button</string>
+    <string name="guardar">Guardar</string>
+    <string name="codigo_producto">Código producto</string>
+    <string name="nombre_articulo">Nombre artículo</string>
+    <string name="precio">Precio</string>
+    <string name="cantidad">Cantidad</string>
+
     <string name="descWidget">App Widget</string>
 </resources>
