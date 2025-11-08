@@ -43,7 +43,6 @@ class DetailProduct : Fragment() {
         inventory?.let { inv ->
             binding.btnEliminar.setOnClickListener {
 
-
                 showDialog(requireContext()) {
                     inventoryViewModel.deleteProduct(inventory)
                     findNavController().navigate(R.id.action_detailProduct_to_homeInventory)

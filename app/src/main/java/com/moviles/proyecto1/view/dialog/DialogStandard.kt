@@ -1,7 +1,7 @@
 package com.moviles.proyecto1.view.dialog
 
 import android.content.Context
-import android.widget.Toast
+
 import androidx.appcompat.app.AlertDialog
 
 class DialogStandard {

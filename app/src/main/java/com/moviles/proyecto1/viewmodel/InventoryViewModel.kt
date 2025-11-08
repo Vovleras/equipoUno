@@ -1,6 +1,7 @@
 package com.moviles.proyecto1.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.moviles.proyecto1.repository.InventoryRepository
 import androidx.lifecycle.LiveData
@@ -112,6 +113,7 @@ class InventoryViewModel(application: Application): AndroidViewModel(application
             try {
                  val msg = inventoryRepository.deleteInventory(inventory)
                 _deleteMessage.postValue(msg)
+                Log.e("DELETE VM", msg)
                 _progresState.value = false
             } catch (e: Exception) {
                 _deleteMessage.postValue("Error al eliminar")
