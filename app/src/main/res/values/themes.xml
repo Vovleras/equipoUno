@@ -11,4 +11,8 @@
     <item name="titleTextColor">@color/white</item>
 
   </style>
+
+  <style name="Theme.InventoryWidget.AppWidgetContainer" parent="Theme.Material3.DayNight.NoActionBar">
+    <item name="android:background">@color/black_specific</item>
+  </style>
 </resources>
