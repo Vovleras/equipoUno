@@ -75,7 +75,7 @@ class Widget : AppWidgetProvider() {
                 }
             }
         } else {
-            views.setTextViewText(R.id.tvprice, "$ ****")
+            views.setTextViewText(R.id.tvprice, context.getString(R.string.default_price_w))
             views.setImageViewResource(R.id.iseye, R.drawable.eye)
 
             views.setOnClickPendingIntent(

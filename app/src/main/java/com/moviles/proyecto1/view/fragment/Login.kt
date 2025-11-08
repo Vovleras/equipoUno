@@ -61,7 +61,6 @@ class Login : Fragment() {
         return BiometricPrompt.PromptInfo.Builder()
             .setTitle(getString(R.string.tittle_biometrics))
             .setSubtitle(getString(R.string.subtitle_biometrics))
-            .setDescription(getString(R.string.description_biometrics))
             .setAllowedAuthenticators(BIOMETRIC_STRONG)
             .setNegativeButtonText(getString(R.string.cancelar))
             .build()
