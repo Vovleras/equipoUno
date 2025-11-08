@@ -51,10 +51,6 @@ class HomeInventory : Fragment() {
     private fun listInventory() {
         //Agregar productos mientras, eliminar cuando este add
 
-        val dato1 = Inventory(4,"zapatos", 100.0f, 5)
-        val dato2 = Inventory(5,"camisas", 2000000.459f, 3)
-        inventoryViewModel.saveInventory(dato1)
-        inventoryViewModel.saveInventory(dato2)
 
         // Borrar hasta aqui
 
@@ -70,8 +66,6 @@ class HomeInventory : Fragment() {
 
     private fun navigationHomeInventoryToAdd(){
         binding.btnAdd.setOnClickListener {
-            val dato = Inventory(20,"pantalones", 80000.567f, 3) //Borrar
-            inventoryViewModel.saveInventory(dato)
             findNavController().navigate(R.id.action_homeInventory_to_addProduct)
         }
     }
