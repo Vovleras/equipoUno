@@ -37,6 +37,7 @@ class HomeInventory : Fragment() {
             navigationHomeInventoryToAdd()
             listInventory()
             toolBar()
+            progressDB()
         } else {
             Toast.makeText(context,"No ha iniciado sesión", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_homeInventory_to_login)

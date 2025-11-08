@@ -37,6 +37,7 @@ class InventoryViewModel(application: Application): AndroidViewModel(application
             _progresState.value = true
             try {
                 inventoryRepository.saveInventory(inventory)
+                _listInventory.value = inventoryRepository.getListInventory()
                 // En caso de que no se sincronice se agrega getListInventory() (igual en delete)
                 _progresState.value = false
             } catch (e: Exception) {
@@ -58,18 +59,6 @@ class InventoryViewModel(application: Application): AndroidViewModel(application
         }
     }
 
-    fun deleteInventory(inventory: Inventory) {
-        viewModelScope.launch {
-            _progresState.value = true
-            try {
-                inventoryRepository.deleteInventory(inventory)
-                _progresState.value = false
-            } catch (e: Exception) {
-                _progresState.value = false
-            }
-
-        }
-    }
 
     fun updateInventory(inventory: Inventory) {
         viewModelScope.launch {
@@ -112,8 +101,8 @@ class InventoryViewModel(application: Application): AndroidViewModel(application
             _progresState.value = true
             try {
                  val msg = inventoryRepository.deleteInventory(inventory)
+                _listInventory.value = inventoryRepository.getListInventory()
                 _deleteMessage.postValue(msg)
-                Log.e("DELETE VM", msg)
                 _progresState.value = false
             } catch (e: Exception) {
                 _deleteMessage.postValue("Error al eliminar")
