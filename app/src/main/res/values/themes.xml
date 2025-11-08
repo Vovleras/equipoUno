@@ -11,4 +11,13 @@
     <item name="titleTextColor">@color/white</item>
 
   </style>
+
+  <style name="Theme.InventoryWidget.AppWidgetContainer" parent="Theme.Material3.DayNight.NoActionBar">
+    <item name="android:backgroundTint">@color/black_specific</item>
+    <item name="android:paddingStart">15dp</item>
+    <item name="android:paddingEnd">15dp</item>
+    <item name="android:paddingTop">15dp</item>
+    <item name="android:paddingBottom">15dp</item>
+    <item name="android:background">@drawable/widget_background</item>
+  </style>
 </resources>

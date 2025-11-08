@@ -1,0 +1,95 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    style="@style/Theme.InventoryWidget.AppWidgetContainer"
+    >
+
+    <ImageView
+        android:id="@+id/widgetLogo"
+        android:layout_width="@dimen/widget_logo_width"
+        android:layout_height="@dimen/widget_logo_height"
+        android:src="@drawable/icon_widget"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+    />
+
+    <TextView
+        android:id="@+id/tvwidget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/Inventory"
+        android:textColor="@color/red_orange"
+        android:textStyle="bold"
+        android:textSize="@dimen/widget_title_text_size"
+        android:layout_below="@+id/widgetLogo"
+    />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/widgetIn"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="10dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_toStartOf="@id/iseye"
+        android:textSize="@dimen/widget_subtitle_text_size"
+    />
+
+    <ImageButton
+        android:id="@+id/iseye"
+        android:layout_width="@dimen/widget_icon_size"
+        android:layout_height="@dimen/widget_icon_size"
+        android:background="@drawable/eye"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+    />
+
+    <TextView
+        android:id="@+id/tvprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:text="@string/default_price_w"
+        android:layout_below="@id/iseye"
+        android:layout_alignParentEnd="true"
+        android:textSize="@dimen/widget_price_text_size"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+    />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_regular"
+        android:text="@string/g_inv"
+        android:layout_marginEnd="10dp"
+        android:textStyle="normal"
+        android:textColor="@color/white"
+        android:layout_below="@id/tvprice"
+        android:layout_toStartOf="@id/ivsets"
+        android:textSize="@dimen/widget_subtitle_text_size"
+    />
+
+    <ImageButton
+        android:id="@+id/ivsets"
+        android:layout_width="@dimen/widget_icon_size"
+        android:layout_height="@dimen/widget_icon_size"
+        android:background="@drawable/settings"
+        android:layout_below="@id/tvprice"
+        android:layout_alignParentEnd="true"
+    />
+
+
+
+
+
+
+
+
+</RelativeLayout>

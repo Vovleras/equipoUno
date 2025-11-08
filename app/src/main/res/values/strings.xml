@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mini Proyecto 1</string>
+    <string name="app_name">InventoryWidget</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fb_add">Add a product</string>
@@ -10,4 +10,17 @@
     <string name="cantidad_disponible">Cantidad Disponible</string>
     <string name="precio_unidad">Precio Unidad:</string>
     <string name="producto">Producto</string>
+    <string name="tittle_biometrics">Autenticación con biometría</string>
+    <string name="subtitle_biometrics">Ingrese su huella digital</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="exit_button">Exit Button</string>
+    <string name="guardar">Guardar</string>
+    <string name="codigo_producto">Código producto</string>
+    <string name="nombre_articulo">Nombre artículo</string>
+    <string name="precio">Precio</string>
+    <string name="cantidad">Cantidad</string>
+    <string name="descWidget">App Widget</string>
+    <string name="widgetIn">¿Cuánto tengo de inventario?</string>
+    <string name="default_price_w">$ ****</string>
+    <string name="g_inv">Gestionar inventario</string>
 </resources>
