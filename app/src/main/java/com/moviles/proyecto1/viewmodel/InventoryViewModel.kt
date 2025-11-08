@@ -9,15 +9,25 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import com.moviles.proyecto1.model.Inventory
 
+
 class InventoryViewModel(application: Application): AndroidViewModel(application) {
     val context = getApplication<Application>()
     private val inventoryRepository = InventoryRepository(context)
 
     private val _listInventory = MutableLiveData<MutableList<Inventory>>()
     val listInventory: LiveData<MutableList<Inventory>> get() = _listInventory
+    private val _total = MutableLiveData<Float>()
+
+     val total: LiveData<Float> get() = _total
 
     private val _progresState = MutableLiveData(false)
     val progresState: LiveData<Boolean> = _progresState
+
+    private val _totalPerProduct = MutableLiveData<Float>()
+    val totalPerProduct: LiveData<Float> get() = _totalPerProduct
+
+    private val _deleteMessage = MutableLiveData<String>()
+    val deleteMessage: LiveData<String> get() = _deleteMessage
 
 
     fun saveInventory(inventory: Inventory) {
@@ -72,17 +82,43 @@ class InventoryViewModel(application: Application): AndroidViewModel(application
         }
     }
 
-    fun totalProduct(price: Int, quantity: Int): Double {
-        val total = price * quantity
-        return total.toDouble()
+
+    fun calculateTotalInventory(){
+        val inventary = _listInventory.value ?: mutableListOf()
+        var total = 00.0f
+        for (item in inventary) {
+            total += item.total?:0.0f
+        }
+        _total.postValue (total)
     }
 
-    fun calculateTotalInventory(): Double {
-        val inventary = _listInventory.value ?: mutableListOf()
-        var total = 0.0
-        for (item in inventary) {
-            total += item.price * item.quantity
+    fun calculateTotalPerProduct(productID: Int, price: Float, quantity: Int) {
+        viewModelScope.launch {
+            try {
+                val total = inventoryRepository.updateTotalPerProduct(productID, price, quantity)
+                _totalPerProduct.postValue(total)
+
+            }catch (e: Exception   ){
+
+                _totalPerProduct.postValue(0.0f)
+            }
+
         }
-        return total
+    }
+
+    fun deleteProduct(inventory: Inventory)  {
+        viewModelScope.launch {
+            _progresState.value = true
+            try {
+                 val msg = inventoryRepository.deleteInventory(inventory)
+                _deleteMessage.postValue(msg)
+                _progresState.value = false
+            } catch (e: Exception) {
+                _deleteMessage.postValue("Error al eliminar")
+                _progresState.value = false
+            }
+
+
+        }
     }
 }
