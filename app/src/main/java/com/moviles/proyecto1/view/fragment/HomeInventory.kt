@@ -15,6 +15,7 @@ import com.moviles.proyecto1.model.Inventory
 import com.moviles.proyecto1.viewmodel.InventoryViewModel
 import com.moviles.proyecto1.view.adapter.RecyclerAdapter
 import android.content.Context
+import android.util.Log
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 
@@ -25,23 +26,24 @@ class HomeInventory : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHomeInventoryBinding.inflate(inflater)
-        binding.lifecycleOwner = this
-        return binding.root
+        return if (verifySession()) {
+            binding = FragmentHomeInventoryBinding.inflate(inflater, container, false)
+            binding.lifecycleOwner = this
+            binding.root
+        } else {
+            Toast.makeText(context,"No ha iniciado sesión", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_homeInventory_to_login)
+            null
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (verifySession()) {
-            navigationHomeInventoryToAdd()
-            listInventory()
-            toolBar()
-            progressDB()
-        } else {
-            Toast.makeText(context,"No ha iniciado sesión", Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_homeInventory_to_login)
-        }
+        navigationHomeInventoryToAdd()
+        listInventory()
+        toolBar()
+        progressDB()
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             requireActivity().moveTaskToBack(true)
@@ -49,17 +51,10 @@ class HomeInventory : Fragment() {
     }
 
     private fun listInventory() {
-        //Agregar productos mientras, eliminar cuando este add
-
-        val dato1 = Inventory(4,"zapatos", 100.0f, 5)
-        val dato2 = Inventory(5,"camisas", 2000000.459f, 3)
-        inventoryViewModel.saveInventory(dato1)
-        inventoryViewModel.saveInventory(dato2)
-
-        // Borrar hasta aqui
 
         inventoryViewModel.getListInventory()
         inventoryViewModel.listInventory.observe(viewLifecycleOwner) { listInventory ->
+            Log.d("HomeInventory", "Lista de inventario actual: $listInventory")
             val recycler = binding.rvProducts
             recycler.layoutManager = LinearLayoutManager(context)
             val adapter = RecyclerAdapter(listInventory,  findNavController())
@@ -70,8 +65,6 @@ class HomeInventory : Fragment() {
 
     private fun navigationHomeInventoryToAdd(){
         binding.btnAdd.setOnClickListener {
-            val dato = Inventory(20,"pantalones", 80000.567f, 3) //Borrar
-            inventoryViewModel.saveInventory(dato)
             findNavController().navigate(R.id.action_homeInventory_to_addProduct)
         }
     }
@@ -105,5 +98,4 @@ class HomeInventory : Fragment() {
             binding.progress.isVisible = status
         }
     }
-
 }
