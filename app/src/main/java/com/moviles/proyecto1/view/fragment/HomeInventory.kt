@@ -15,6 +15,7 @@ import com.moviles.proyecto1.model.Inventory
 import com.moviles.proyecto1.viewmodel.InventoryViewModel
 import com.moviles.proyecto1.view.adapter.RecyclerAdapter
 import android.content.Context
+import android.util.Log
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 
@@ -25,23 +26,24 @@ class HomeInventory : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHomeInventoryBinding.inflate(inflater)
-        binding.lifecycleOwner = this
-        return binding.root
+        return if (verifySession()) {
+            binding = FragmentHomeInventoryBinding.inflate(inflater, container, false)
+            binding.lifecycleOwner = this
+            binding.root
+        } else {
+            Toast.makeText(context,"No ha iniciado sesión", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_homeInventory_to_login)
+            null
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (verifySession()) {
-            navigationHomeInventoryToAdd()
-            listInventory()
-            toolBar()
-            progressDB()
-        } else {
-            Toast.makeText(context,"No ha iniciado sesión", Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_homeInventory_to_login)
-        }
+        navigationHomeInventoryToAdd()
+        listInventory()
+        toolBar()
+        progressDB()
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             requireActivity().moveTaskToBack(true)
@@ -49,6 +51,7 @@ class HomeInventory : Fragment() {
     }
 
     private fun listInventory() {
+<<<<<<< Updated upstream
         //Agregar productos mientras, eliminar cuando este add
 
         val dato1 = Inventory(4,"zapatos", 100.0f, 5)
@@ -58,6 +61,8 @@ class HomeInventory : Fragment() {
 
         // Borrar hasta aqui
 
+=======
+>>>>>>> Stashed changes
         inventoryViewModel.getListInventory()
         inventoryViewModel.listInventory.observe(viewLifecycleOwner) { listInventory ->
             val recycler = binding.rvProducts
@@ -105,5 +110,4 @@ class HomeInventory : Fragment() {
             binding.progress.isVisible = status
         }
     }
-
 }
