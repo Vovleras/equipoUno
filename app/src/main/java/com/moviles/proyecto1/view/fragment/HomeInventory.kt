@@ -15,6 +15,7 @@ import com.moviles.proyecto1.model.Inventory
 import com.moviles.proyecto1.viewmodel.InventoryViewModel
 import com.moviles.proyecto1.view.adapter.RecyclerAdapter
 import android.content.Context
+import android.util.Log
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 
@@ -56,6 +57,7 @@ class HomeInventory : Fragment() {
 
         inventoryViewModel.getListInventory()
         inventoryViewModel.listInventory.observe(viewLifecycleOwner) { listInventory ->
+            Log.d("HomeInventory", "Lista de inventario actual: $listInventory")
             val recycler = binding.rvProducts
             recycler.layoutManager = LinearLayoutManager(context)
             val adapter = RecyclerAdapter(listInventory,  findNavController())

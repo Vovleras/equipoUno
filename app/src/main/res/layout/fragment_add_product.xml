@@ -26,7 +26,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
                 />
 
 
@@ -55,6 +54,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editCodigoProducto"
+                    android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
@@ -84,6 +84,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editNombreArticulo"
+                    android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapSentences"
@@ -114,6 +115,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editPrecio"
+                    android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
@@ -143,6 +145,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editCantidad"
+                    android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
