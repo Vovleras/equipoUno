@@ -15,7 +15,7 @@ import com.moviles.proyecto1.viewmodel.InventoryViewModel
 import kotlin.getValue
 import com.moviles.proyecto1.model.Inventory
 import com.moviles.proyecto1.view.dialog.DialogStandard.Companion.showDialog
-
+import java.util.Locale
 
 
 class DetailProduct : Fragment() {
@@ -70,10 +70,11 @@ class DetailProduct : Fragment() {
             val name = inventory.name
             val price = inventory.price
             val quantity = inventory.quantity
+            val localeES = Locale.Builder().setLanguageTag("es-CO").build()
 
             inventoryViewModel.calculateTotalPerProduct(id, price, quantity)
             binding.tvTituloProducto.text = name
-            binding.tvValorPrecio.text = "${price}"
+            binding.tvValorPrecio.text = String.format(localeES,"\$%,.2f", price)
             binding.tvValorCantidad.text = "$quantity"
         }
     }
@@ -107,8 +108,9 @@ class DetailProduct : Fragment() {
     }
 
     private fun setupObservers() {
+        val localeES = Locale.Builder().setLanguageTag("es-CO").build()
         inventoryViewModel.totalPerProduct.observe(viewLifecycleOwner) { total ->
-            binding.tvValorTotal.text = String.format("$%.2f", total)
+            binding.tvValorTotal.text = String.format(localeES,"\$%,.2f", total)
         }
     }
 
