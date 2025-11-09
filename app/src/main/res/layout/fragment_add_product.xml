@@ -73,19 +73,6 @@
             android:layout_marginBottom="15dp"
             >
 
-<<<<<<< Updated upstream
-=======
-            <include
-                android:id="@+id/contentToolbar"
-                layout="@layout/toolbar"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                />
->>>>>>> Stashed changes
-
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editNombreArticulo"
                 android:layout_width="match_parent"

@@ -51,14 +51,7 @@ class HomeInventory : Fragment() {
     }
 
     private fun listInventory() {
-<<<<<<< Updated upstream
-        //Agregar productos mientras, eliminar cuando este add
 
-
-        // Borrar hasta aqui
-
-=======
->>>>>>> Stashed changes
         inventoryViewModel.getListInventory()
         inventoryViewModel.listInventory.observe(viewLifecycleOwner) { listInventory ->
             Log.d("HomeInventory", "Lista de inventario actual: $listInventory")
