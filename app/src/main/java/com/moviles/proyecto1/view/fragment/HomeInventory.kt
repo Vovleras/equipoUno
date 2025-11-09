@@ -61,6 +61,7 @@ class HomeInventory : Fragment() {
 >>>>>>> Stashed changes
         inventoryViewModel.getListInventory()
         inventoryViewModel.listInventory.observe(viewLifecycleOwner) { listInventory ->
+            Log.d("HomeInventory", "Lista de inventario actual: $listInventory")
             val recycler = binding.rvProducts
             recycler.layoutManager = LinearLayoutManager(context)
             val adapter = RecyclerAdapter(listInventory,  findNavController())
