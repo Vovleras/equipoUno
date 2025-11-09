@@ -100,7 +100,7 @@
         android:id="@+id/editPrecio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:maxLength="20"
         android:textColor="@color/white"
         android:text="Precio ejemplo"/>
@@ -142,7 +142,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginLeft="15dp"
-      android:layout_marginTop="45dp"
+      android:layout_marginTop="25dp"
       android:layout_marginRight="15dp"
       android:text="@string/editar"
       android:textColor="@android:color/white"
