@@ -21,6 +21,7 @@ import java.util.Locale
 class DetailProduct : Fragment() {
     private lateinit var binding: FragmentDetailProductBinding
     private val inventoryViewModel: InventoryViewModel by viewModels()
+    private var product: Inventory? = null
 
 
 
@@ -80,7 +81,8 @@ class DetailProduct : Fragment() {
     }
 
     private fun getBundle(): Inventory? {
-        return arguments?.getSerializable("clave") as? Inventory
+        product = arguments?.getSerializable("clave", Inventory::class.java)
+        return product
     }
 
 
