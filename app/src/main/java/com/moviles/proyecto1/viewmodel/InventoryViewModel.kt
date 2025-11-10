@@ -30,6 +30,9 @@ class InventoryViewModel(application: Application): AndroidViewModel(application
     private val _deleteMessage = MutableLiveData<String>()
     val deleteMessage: LiveData<String> get() = _deleteMessage
 
+    private val _saveMessage = MutableLiveData<String>()
+    val saveMessage: LiveData<String> get() = _saveMessage
+
 
     fun saveInventory(inventory: Inventory) {
         viewModelScope.launch {
@@ -43,6 +46,7 @@ class InventoryViewModel(application: Application): AndroidViewModel(application
             } catch (e: Exception) {
                 _progresState.value = false
             }
+            Log.d("AddProduct", "Producto guardado: $inventory")
         }
     }
 
@@ -112,4 +116,10 @@ class InventoryViewModel(application: Application): AndroidViewModel(application
 
         }
     }
+
+    fun totalProduct(precio: Float, cantidad: Int): Float {
+        val total = precio * cantidad
+        return total
+    }
+
 }

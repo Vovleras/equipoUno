@@ -58,5 +58,10 @@
         <action
             android:id="@+id/action_editProduct_to_detailProduct"
             app:destination="@id/detailProduct" />
+        <action
+          android:id="@+id/action_editProduct_to_homeInventory"
+          app:destination="@id/homeInventory"
+          app:popUpTo="@id/homeInventory"
+          app:popUpToInclusive="false"/>
     </fragment>
 </navigation>
