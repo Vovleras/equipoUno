@@ -80,10 +80,12 @@ class EditProduct : Fragment() {
   }
 
   private fun pressButton() {
+    fun Float.round2(): Float = "%.2f".format(this).replace(",", ".").toFloat()
+
     val updatedProduct = Inventory(
       id = binding.labelNumero.text.toString().toInt(),
       name = binding.editNombreArticulo.text.toString().trim(),
-      price = binding.editPrecio.text.toString().toFloat(),
+      price = binding.editPrecio.text.toString().toFloat().round2(),
       quantity = binding.editCantidad.text.toString().toInt(),
       total = inventoryViewModel.totalProduct(  //Recalcula el total
         binding.editPrecio.text.toString().toFloat(),
