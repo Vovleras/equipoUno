@@ -32,6 +32,7 @@ class Login : Fragment() {
         binding = FragmentLoginBinding.inflate(inflater)
         binding.lifecycleOwner = this
         checkUserSession()
+        newLogin()
         return binding.root
     }
 
@@ -123,6 +124,13 @@ class Login : Fragment() {
         }
         else{
             biometricEvent()
+        }
+    }
+
+    private fun newLogin() {
+
+        binding.lottieInventory.setOnClickListener {
+            findNavController().navigate(R.id.action_login_to_loginActivity)
         }
     }
 
