@@ -86,6 +86,7 @@
             app:hintTextColor="@color/white"
             app:counterOverflowTextColor="@color/white"
             app:endIconMode="password_toggle"
+            app:endIconTint="@color/white"
             >
 
             <com.google.android.material.textfield.TextInputEditText
