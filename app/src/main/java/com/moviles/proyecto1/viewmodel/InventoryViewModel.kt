@@ -2,6 +2,7 @@ package com.moviles.proyecto1.viewmodel
 
 import android.app.Application
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import com.moviles.proyecto1.repository.InventoryRepository
 import androidx.lifecycle.LiveData
@@ -9,11 +10,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import com.moviles.proyecto1.model.Inventory
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import androidx.lifecycle.ViewModel
 
 
-class InventoryViewModel(application: Application): AndroidViewModel(application) {
-    val context = getApplication<Application>()
-    private val inventoryRepository = InventoryRepository(context)
+@HiltViewModel
+class InventoryViewModel @Inject constructor(
+    private val inventoryRepository: InventoryRepository
+): ViewModel()
+
+{
+    //al context = getApplication<Application>()
+    //private val inventoryRepository = InventoryRepository(context)
 
     private val _listInventory = MutableLiveData<MutableList<Inventory>>()
     val listInventory: LiveData<MutableList<Inventory>> get() = _listInventory

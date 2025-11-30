@@ -1,16 +1,22 @@
 package com.moviles.proyecto1.repository
 
-import android.content.Context
 import android.util.Log
-import com.moviles.proyecto1.data.InventoryDB
 import com.moviles.proyecto1.data.InventoryDao
 import com.moviles.proyecto1.model.Inventory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 
-class InventoryRepository (val context: Context) {
-    private var inventoryDao: InventoryDao = InventoryDB.getDatabase(context).inventoryDao()
+
+
+
+class InventoryRepository @Inject constructor(
+    private val inventoryDao: InventoryDao
+
+
+)  {
+    //private var inventoryDao: InventoryDao = InventoryDB.getDatabase(context).inventoryDao()
     suspend fun saveInventory(inventory:Inventory){
         withContext(Dispatchers.IO){
             inventoryDao.saveInventory(inventory)

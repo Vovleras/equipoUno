@@ -10,14 +10,4 @@ import com.moviles.proyecto1.utils.Constants.NAME_DB
 @Database (entities = [Inventory::class], version = 1)
 abstract class InventoryDB: RoomDatabase() {
     abstract fun inventoryDao(): InventoryDao
-
-    companion object{
-        fun getDatabase(context: Context): InventoryDB {
-            return Room.databaseBuilder(
-                context.applicationContext,
-                InventoryDB::class.java,
-                NAME_DB
-            ).build()
-        }
-    }
 }

@@ -7,14 +7,18 @@ import android.widget.RemoteViews
 import com.moviles.proyecto1.R
 import android.content.Intent
 import android.app.PendingIntent
-import com.moviles.proyecto1.repository.InventoryRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.Locale
+import dagger.hilt.android.EntryPointAccessors
+import com.moviles.proyecto1.di.RepositoryEntryPoint
+import android.app.Application
 
 class Widget : AppWidgetProvider() {
+
+
     companion object{
         private const val BUTTON_EYE = "button_eye"
         private const val BUTTON_SETTINGS = "button_settings"
@@ -53,7 +57,11 @@ class Widget : AppWidgetProvider() {
         // Alternar el ícono y la visibilidad del precio
         if (isVisible) {
             CoroutineScope(Dispatchers.IO).launch {
-                val repository = InventoryRepository(context)
+                val entryPoint = EntryPointAccessors.fromApplication(
+                    context.applicationContext as Application,
+                    RepositoryEntryPoint::class.java
+                )
+                val repository = entryPoint.inventoryRepository()
                 val total = repository.calculateTotalInventory()
                 val localeES = Locale.Builder().setLanguageTag("es-CO").build()
 

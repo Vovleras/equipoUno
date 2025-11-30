@@ -14,8 +14,10 @@ import com.moviles.proyecto1.R
 import com.moviles.proyecto1.databinding.FragmentEditProductBinding
 import com.moviles.proyecto1.model.Inventory
 import com.moviles.proyecto1.viewmodel.InventoryViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.text.toFloat
 
+@AndroidEntryPoint
 class EditProduct : Fragment() {
   private lateinit var binding: FragmentEditProductBinding
   private val inventoryViewModel: InventoryViewModel by viewModels()
