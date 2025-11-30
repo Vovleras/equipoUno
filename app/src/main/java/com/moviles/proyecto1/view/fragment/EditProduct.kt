@@ -50,7 +50,7 @@ class EditProduct : Fragment() {
     product = arguments?.getSerializable("clave", Inventory::class.java)
     product?.let { p ->
       isUpdating = true
-      binding.labelNumero.text = p.id.toString()
+      binding.labelNumero.text = p.code.toString()
       binding.editNombreArticulo.setText(p.name)
       binding.editPrecio.setText(p.price.toString())
       binding.editCantidad.setText(p.quantity.toString())
@@ -85,7 +85,7 @@ class EditProduct : Fragment() {
     fun Float.round2(): Float = "%.2f".format(this).replace(",", ".").toFloat()
 
     val updatedProduct = Inventory(
-      id = binding.labelNumero.text.toString().toInt(),
+      id = binding.labelNumero.text.toString(),
       name = binding.editNombreArticulo.text.toString().trim(),
       price = binding.editPrecio.text.toString().toFloat().round2(),
       quantity = binding.editCantidad.text.toString().toInt(),

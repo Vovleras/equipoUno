@@ -19,7 +19,7 @@ class InventoryViewHolder(binding: ItemProductBinding, navController: NavControl
 
         val localeES = Locale.Builder().setLanguageTag("es-CO").build()
         bindingItem.tvName.text = inventory.name
-        bindingItem.tvID.text = "id: ${inventory.id.toString()}"
+        bindingItem.tvID.text = "id: ${inventory.code.toString()}"
         bindingItem.tvPrice.text = String.format(localeES,"\$%,.2f", inventory.price)
         //bindingItem.tvQuantity.text = "${inventory.quantity}"
 

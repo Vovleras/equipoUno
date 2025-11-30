@@ -69,6 +69,7 @@ class DetailProduct : Fragment() {
         val inventory = getBundle()
         if (inventory != null) {
             val id = inventory.id
+            val code = inventory.code
             val name = inventory.name
             val price = inventory.price
             val quantity = inventory.quantity

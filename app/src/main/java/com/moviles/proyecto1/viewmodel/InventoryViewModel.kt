@@ -50,6 +50,7 @@ class InventoryViewModel @Inject constructor(
             try {
                 inventoryRepository.saveInventory(inventory)
                 _listInventory.value = inventoryRepository.getListInventory()
+
                 // En caso de que no se sincronice se agrega getListInventory() (igual en delete)
                 _progresState.value = false
             } catch (e: Exception) {
@@ -86,23 +87,12 @@ class InventoryViewModel @Inject constructor(
     }
 
 
-    fun calculateTotalInventory(){
-        val inventary = _listInventory.value ?: mutableListOf()
-        var total = 00.0f
-        for (item in inventary) {
-            total += item.total?:0.0f
-        }
-        _total.postValue (total)
-    }
-
-    fun calculateTotalPerProduct(productID: Int, price: Float, quantity: Int) {
+    fun calculateTotalPerProduct(productID: String, price: Float, quantity: Int) {
         viewModelScope.launch {
             try {
                 val total = inventoryRepository.updateTotalPerProduct(productID, price, quantity)
                 _totalPerProduct.postValue(total)
-
             }catch (e: Exception   ){
-
                 _totalPerProduct.postValue(0.0f)
             }
 
@@ -129,6 +119,18 @@ class InventoryViewModel @Inject constructor(
     fun totalProduct(precio: Float, cantidad: Int): Float {
         val total = precio * cantidad
         return total
+    }
+
+    fun addProduct( codigo: Int, nombre: String, precio: Float, cantidad: Int, totalProd: Float) {
+        val inventario = Inventory(
+            id = "",
+            code = codigo,
+            name = nombre,
+            price = precio,
+            quantity = cantidad,
+            total = totalProd
+        )
+        saveInventory(inventario)
     }
 
 }
