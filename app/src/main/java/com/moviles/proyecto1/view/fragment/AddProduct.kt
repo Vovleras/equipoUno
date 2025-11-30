@@ -14,8 +14,10 @@ import com.moviles.proyecto1.R
 import com.moviles.proyecto1.databinding.FragmentAddProductBinding
 import com.moviles.proyecto1.model.Inventory
 import com.moviles.proyecto1.viewmodel.InventoryViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.getValue
 
+@AndroidEntryPoint
 class AddProduct : Fragment() {
     private lateinit var binding: FragmentAddProductBinding
     private val inventoryViewModel: InventoryViewModel by viewModels()
