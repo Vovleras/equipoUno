@@ -8,6 +8,8 @@ import com.moviles.proyecto1.databinding.ItemProductBinding
 import com.moviles.proyecto1.model.Inventory
 import com.moviles.proyecto1.view.viewholder.InventoryViewHolder
 
+
+
 class RecyclerAdapter(private val listInventory:MutableList<Inventory>, private val navController: NavController):
     RecyclerView.Adapter<InventoryViewHolder>() {
 
