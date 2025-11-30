@@ -31,7 +31,8 @@
             app:lottie_rawRes="@raw/inventory_login"
         />
 
-        <TextView android:id="@+id/login_inventory"
+        <TextView
+            android:id="@+id/login_inventory"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
