@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_login_to_homeInventory"
             app:destination="@id/homeInventory" />
+        <action
+            android:id="@+id/action_login_to_loginActivity"
+            app:destination="@id/loginActivity" />
     </fragment>
     <fragment
         android:id="@+id/homeInventory"
@@ -64,4 +67,8 @@
           app:popUpTo="@id/homeInventory"
           app:popUpToInclusive="false"/>
     </fragment>
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.moviles.proyecto1.view.LoginActivity"
+        android:label="LoginActivity" />
 </navigation>
