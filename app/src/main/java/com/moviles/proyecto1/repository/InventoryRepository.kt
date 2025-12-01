@@ -45,7 +45,7 @@ class InventoryRepository @Inject constructor(
         return try {
             collection.get().await().documents.mapNotNull { doc ->
                 val inv = doc.toObject(Inventory::class.java)
-                inv?.apply { id = doc.id } // <-- asignar id del documento
+                inv?.apply { id = doc.id }
             }.toMutableList()
         } catch (e: Exception) {
             Log.e("Repository", "Error al obtener lista: ${e.message}")

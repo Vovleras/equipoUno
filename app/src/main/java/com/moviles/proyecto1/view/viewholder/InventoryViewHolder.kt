@@ -21,7 +21,7 @@ class InventoryViewHolder(binding: ItemProductBinding, navController: NavControl
         bindingItem.tvID.text = "id: ${inventory.id}"
         bindingItem.tvPrice.text = String.format(localeES,"\$%,.2f", inventory.price)
         //bindingItem.tvQuantity.text = "${inventory.quantity}"
-        Log.d("InventoryViewHolder", "Binding item: $inventory")
+        
 
         bindingItem.cvProducts.setOnClickListener {
             val bundle = Bundle()
