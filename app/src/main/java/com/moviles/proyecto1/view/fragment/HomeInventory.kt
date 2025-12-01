@@ -20,9 +20,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class HomeInventory : Fragment() {
     private lateinit var binding: FragmentHomeInventoryBinding
+
     private val inventoryViewModel: InventoryViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,9 +45,9 @@ class HomeInventory : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         navigationHomeInventoryToAdd()
-        listInventory()
         toolBar()
         progressDB()
+        listInventory()
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             requireActivity().moveTaskToBack(true)

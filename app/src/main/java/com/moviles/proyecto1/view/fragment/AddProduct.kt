@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.firestore.FirebaseFirestore
 import com.moviles.proyecto1.R
 import com.moviles.proyecto1.databinding.FragmentAddProductBinding
 import com.moviles.proyecto1.model.Inventory
@@ -19,7 +20,9 @@ import kotlin.getValue
 
 @AndroidEntryPoint
 class AddProduct : Fragment() {
+
     private lateinit var binding: FragmentAddProductBinding
+
     private val inventoryViewModel: InventoryViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,10 +90,9 @@ class AddProduct : Fragment() {
         val precio = binding.editPrecio.text.toString().toFloat()
         val cantidad = binding.editCantidad.text.toString().toInt()
         val totalProd = inventoryViewModel.totalProduct(precio, cantidad)
-        val inventario = Inventory(codigo, nombre, precio, cantidad, totalProd)
-
-        inventoryViewModel.saveInventory(inventario)
+        inventoryViewModel.addProduct( codigo, nombre,precio,cantidad,totalProd)
         Toast.makeText(requireContext(), "Producto agregado", Toast.LENGTH_SHORT).show()
+
 
 
     }
