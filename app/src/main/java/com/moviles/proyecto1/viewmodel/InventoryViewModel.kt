@@ -123,8 +123,7 @@ class InventoryViewModel @Inject constructor(
 
     fun addProduct( codigo: Int, nombre: String, precio: Float, cantidad: Int, totalProd: Float) {
         val inventario = Inventory(
-            id = "",
-            code = codigo,
+            id = codigo.toString(),
             name = nombre,
             price = precio,
             quantity = cantidad,

@@ -8,7 +8,6 @@ import java.io.Serializable
 data class Inventory(
     @DocumentId
     var id: String = "",
-    val code : Int = 0,
     val name: String = "",
     val price: Float = 0f,
     val quantity: Int = 0,

@@ -20,9 +20,21 @@ class InventoryRepository @Inject constructor(
 
     suspend fun saveInventory(inventory: Inventory): String? {
         return try {
-            val docRef = collection.add(inventory).await()
-            Log.d("Repository", "Producto creado: ${docRef.id}")
-            docRef.id
+
+            if (inventory.id.isBlank()) {
+                throw IllegalArgumentException("El ID del inventario no puede estar vacío")
+            }
+
+
+            val docRef = collection.document(inventory.id)
+
+
+            docRef.set(inventory).await()
+
+
+            Log.d("Repository", "Producto creado con ID: ${inventory.id}")
+            inventory.id
+
         } catch (e: Exception) {
             Log.e("Repository", "Error al crear producto: ${e.message}")
             null
