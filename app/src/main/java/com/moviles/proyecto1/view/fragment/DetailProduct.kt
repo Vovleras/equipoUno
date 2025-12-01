@@ -15,12 +15,14 @@ import com.moviles.proyecto1.viewmodel.InventoryViewModel
 import kotlin.getValue
 import com.moviles.proyecto1.model.Inventory
 import com.moviles.proyecto1.view.dialog.DialogStandard.Companion.showDialog
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
-
+@AndroidEntryPoint
 class DetailProduct : Fragment() {
     private lateinit var binding: FragmentDetailProductBinding
     private val inventoryViewModel: InventoryViewModel by viewModels()
+    private var product: Inventory? = null
 
 
 
@@ -80,7 +82,8 @@ class DetailProduct : Fragment() {
     }
 
     private fun getBundle(): Inventory? {
-        return arguments?.getSerializable("clave") as? Inventory
+        product = arguments?.getSerializable("clave", Inventory::class.java)
+        return product
     }
 
 

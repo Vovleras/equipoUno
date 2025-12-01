@@ -1,5 +1,5 @@
 package com.moviles.proyecto1.view
-
+import dagger.hilt.android.AndroidEntryPoint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -9,6 +9,8 @@ import androidx.databinding.DataBindingUtil
 import com.moviles.proyecto1.R
 import com.moviles.proyecto1.databinding.ActivityMainBinding
 
+
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
   lateinit var binding: ActivityMainBinding
 
