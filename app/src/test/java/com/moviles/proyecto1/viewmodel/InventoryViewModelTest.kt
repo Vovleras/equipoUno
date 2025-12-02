@@ -334,6 +334,56 @@ class InventoryViewModelTest {
         assert(result == 0f)
     }
 
-    
+    /**
+     * Test para addProduct()
+     * Verifica que se agregue un producto correctamente llamando a saveInventory
+     */
+    @Test
+    fun `addProduct - crear item y guardar`() = runTest {
+        // Given
+        val codigo = 123
+        val nombre = "Nuevo Producto"
+        val precio = 250f
+        val cantidad = 8
+        val totalProd = 2000f
+
+        // Configurar stubs para los métodos del repositorio
+        `when`(inventoryRepository.saveInventory(anyObject())).thenReturn("123")
+        `when`(inventoryRepository.getListInventory()).thenReturn(mutableListOf())
+
+        // When
+        viewModel.addProduct(codigo, nombre, precio, cantidad, totalProd)
+
+        // Then - Verificar que se llamó saveInventory exactamente una vez
+        // y que se llamó getListInventory para actualizar la lista
+        verify(inventoryRepository, times(1)).saveInventory(anyObject())
+        verify(inventoryRepository, times(1)).getListInventory()
+
+        // Verificar que la lista se actualizó
+        assert(viewModel.listInventory.value != null)
+    }
+
+    /**
+     * Test para addProduct() con valores mínimos
+     */
+    @Test
+    fun `addProduct - valores minimos`() = runTest {
+        // Given
+        val codigo = 1
+        val nombre = "A"
+        val precio = 1f
+        val cantidad = 1
+        val totalProd = 1f
+
+        // Configurar stubs
+        `when`(inventoryRepository.saveInventory(anyObject())).thenReturn("1")
+        `when`(inventoryRepository.getListInventory()).thenReturn(mutableListOf())
+
+        // When
+        viewModel.addProduct(codigo, nombre, precio, cantidad, totalProd)
+
+        // Then - Verificar que se llamó saveInventory
+        verify(inventoryRepository, times(1)).saveInventory(anyObject())
+    }
 }
 
