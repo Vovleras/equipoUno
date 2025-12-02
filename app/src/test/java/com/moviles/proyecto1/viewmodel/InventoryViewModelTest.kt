@@ -95,6 +95,47 @@ class InventoryViewModelTest {
         assert(viewModel.progresState.value == false)
     }
 
+    /**
+     * Test para saveInventory() cuando ocurre una excepción
+     */
+    @Test
+    fun `saveInventory - excepcion`() = runTest {
+        // Given
+        val inventory = Inventory(id = "1", name = "Test", price = 100f, quantity = 1)
+
+        `when`(inventoryRepository.saveInventory(inventory)).thenThrow(RuntimeException("Error"))
+
+        // When
+        viewModel.saveInventory(inventory)
+
+        // Then
+        assert(viewModel.progresState.value == false)
+    }
+
+    /**
+     * Test para getListInventory()
+     * Verifica que se obtenga la lista de inventario correctamente
+     */
+    @Test
+    fun `getListInventory - obtener lista`() = runTest {
+        // Given
+        val inventoryList = mutableListOf(
+            Inventory(id = "1", name = "Producto 1", price = 100f, quantity = 5, total = 500f),
+            Inventory(id = "2", name = "Producto 2", price = 200f, quantity = 3, total = 600f),
+            Inventory(id = "3", name = "Producto 3", price = 300f, quantity = 9, total = 1200f)
+        )
+
+        `when`(inventoryRepository.getListInventory()).thenReturn(inventoryList)
+
+        // When
+        viewModel.getListInventory()
+
+        // Then
+        verify(inventoryRepository).getListInventory()
+        assert(viewModel.listInventory.value == inventoryList)
+        assert(viewModel.progresState.value == false)
+    }
+
     
 }
 
