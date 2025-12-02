@@ -38,10 +38,22 @@ class EditProduct : Fragment() {
     return binding.root
   }
 
+
+  private fun getBundle(): Inventory? {
+    product = arguments?.getSerializable("clave", Inventory::class.java)
+    return product
+  }
+  private fun createBundleFromProduct(): Bundle {
+    val product = getBundle()
+    val bundle = Bundle()
+    bundle.putSerializable("clave", product)
+    return bundle
+  }
   private fun setupToolbar() {
     binding.contentToolbar.title = "Editar Producto"
     binding.contentToolbar.toolbar.setNavigationOnClickListener {
-      findNavController().navigate(R.id.action_editProduct_to_detailProduct)
+      val bundle  = createBundleFromProduct()
+      findNavController().navigate(R.id.action_editProduct_to_detailProduct, bundle)
     }
 
   }
