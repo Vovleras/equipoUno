@@ -136,6 +136,21 @@ class InventoryViewModelTest {
         assert(viewModel.progresState.value == false)
     }
 
+    /**
+     * Test para getListInventory() cuando ocurre una excepción
+     */
+    @Test
+    fun `getListInventory - excepcion`() = runTest {
+        // Given
+        `when`(inventoryRepository.getListInventory()).thenThrow(RuntimeException("Error"))
+
+        // When
+        viewModel.getListInventory()
+
+        // Then
+        assert(viewModel.progresState.value == false)
+    }
+
     
 }
 
