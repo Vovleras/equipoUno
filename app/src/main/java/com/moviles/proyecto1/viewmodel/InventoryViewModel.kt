@@ -56,7 +56,6 @@ class InventoryViewModel @Inject constructor(
             } catch (e: Exception) {
                 _progresState.value = false
             }
-            Log.d("AddProduct", "Producto guardado: $inventory")
         }
     }
 
