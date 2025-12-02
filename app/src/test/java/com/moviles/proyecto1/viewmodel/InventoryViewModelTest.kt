@@ -285,6 +285,55 @@ class InventoryViewModelTest {
         assert(viewModel.progresState.value == false)
     }
 
+    /**
+     * Test para totalProduct()
+     * Verifica que se calcule el total correctamente
+     */
+    @Test
+    fun `totalProduct - calcular`() {
+        // Given
+        val precio = 100f
+        val cantidad = 5
+
+        // When
+        val result = viewModel.totalProduct(precio, cantidad)
+
+        // Then
+        assert(result == 500f)
+    }
+
+    /**
+     * Test para totalProduct() con valores cero
+     */
+    @Test
+    fun `totalProduct - cantidad cero`() {
+        // Given
+        val precio = 100f
+        val cantidad = 0
+
+        // When
+        val result = viewModel.totalProduct(precio, cantidad)
+
+        // Then
+        assert(result == 0f)
+    }
+
+    /**
+     * Test para totalProduct() con precio cero
+     */
+    @Test
+    fun `totalProduct - precio cero`() {
+        // Given
+        val precio = 0f
+        val cantidad = 5
+
+        // When
+        val result = viewModel.totalProduct(precio, cantidad)
+
+        // Then
+        assert(result == 0f)
+    }
+
     
 }
 
