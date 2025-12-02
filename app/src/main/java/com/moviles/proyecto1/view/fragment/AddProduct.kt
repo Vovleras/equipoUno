@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -62,10 +63,12 @@ class AddProduct : Fragment() {
 
         val areFilled = !codigo.isNullOrEmpty() && !nombre.isNullOrEmpty() && !precio.isNullOrEmpty() && !cantidad.isNullOrEmpty()
 
-        btnGuardar.apply {
-            isEnabled = areFilled
-            setTypeface(null, if (areFilled) Typeface.BOLD else Typeface.NORMAL)
-        }
+        btnGuardar.isEnabled = areFilled
+
+        binding.btnGuardar.setTypeface(
+            null,
+            if (areFilled) Typeface.BOLD else Typeface.NORMAL
+        )
 
     }
 

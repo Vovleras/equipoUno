@@ -95,6 +95,23 @@ class InventoryViewModelTest {
         assert(viewModel.progresState.value == false)
     }
 
+    /**
+     * Test para saveInventory() cuando ocurre una excepción
+     */
+    @Test
+    fun `saveInventory - excepcion`() = runTest {
+        // Given
+        val inventory = Inventory(id = "1", name = "Test", price = 100f, quantity = 1)
+
+        `when`(inventoryRepository.saveInventory(inventory)).thenThrow(RuntimeException("Error"))
+
+        // When
+        viewModel.saveInventory(inventory)
+
+        // Then
+        assert(viewModel.progresState.value == false)
+    }
+
     
 }
 
