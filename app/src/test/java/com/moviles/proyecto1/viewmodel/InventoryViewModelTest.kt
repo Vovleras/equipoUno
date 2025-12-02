@@ -236,6 +236,55 @@ class InventoryViewModelTest {
         assert(viewModel.totalPerProduct.value == 0.0f)
     }
 
+    /**
+     * Test para deleteProduct()
+     * Verifica que se elimine un producto correctamente
+     */
+    @Test
+    fun `deleteProduct - eliminar y actualizar`() = runTest {
+        // Given
+        val inventory = Inventory(
+            id = "1",
+            name = "Producto a Eliminar",
+            price = 100f,
+            quantity = 5,
+            total = 500f
+        )
+        val successMessage = "Producto a Eliminar eliminado correctamente"
+        val updatedList = mutableListOf<Inventory>()
+
+        `when`(inventoryRepository.deleteInventory(inventory)).thenReturn(successMessage)
+        `when`(inventoryRepository.getListInventory()).thenReturn(updatedList)
+
+        // When
+        viewModel.deleteProduct(inventory)
+
+        // Then
+        verify(inventoryRepository).deleteInventory(inventory)
+        verify(inventoryRepository).getListInventory()
+        assert(viewModel.deleteMessage.value == successMessage)
+        assert(viewModel.listInventory.value == updatedList)
+        assert(viewModel.progresState.value == false)
+    }
+
+    /**
+     * Test para deleteProduct() cuando ocurre una excepción
+     */
+    @Test
+    fun `deleteProduct - excepcion`() = runTest {
+        // Given
+        val inventory = Inventory(id = "1", name = "Test", price = 100f, quantity = 1)
+
+        `when`(inventoryRepository.deleteInventory(inventory)).thenThrow(RuntimeException("Error"))
+
+        // When
+        viewModel.deleteProduct(inventory)
+
+        // Then
+        assert(viewModel.deleteMessage.value == "Error al eliminar")
+        assert(viewModel.progresState.value == false)
+    }
+
     
 }
 
