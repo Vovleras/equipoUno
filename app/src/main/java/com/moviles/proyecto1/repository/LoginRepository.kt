@@ -6,8 +6,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class LoginRepository {
+@Singleton
+class LoginRepository @Inject constructor() {
     private val firebaseAuth = FirebaseAuth.getInstance()
     suspend fun registerUser(userRequest: UserRequest, userResponse: (UserResponse) -> Unit) {
         withContext(Dispatchers.IO){
