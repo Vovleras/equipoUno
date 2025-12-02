@@ -15,17 +15,20 @@ import com.moviles.proyecto1.viewmodel.LoginViewModel
 import androidx.activity.viewModels
 import com.moviles.proyecto1.model.UserRequest
 import android.content.Context
+import android.appwidget.AppWidgetManager
+import android.content.Intent
 
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
 
+    private var fromWidget = false
+
+
     companion object {
         private const val PREFS_NAME = "user_session"
         private const val KEY_IS_LOGGED_IN = "is_logged_in"
-        private const val COME_WIDGET = "from_widget"
-        private const val KEY_IS_FROM_WIDGET = "is_from_widget"
     }
 
     private val loginViewModel: LoginViewModel by viewModels()
@@ -33,8 +36,8 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+        fromWidget = intent.getBooleanExtra("from_widget", false)
         setupListeners()
-
     }
 
     private fun saveUserSession() {
@@ -50,11 +53,6 @@ class LoginActivity : AppCompatActivity() {
         return sharedPref.getBoolean(KEY_IS_LOGGED_IN, false)
     }
 
-    private fun isFromWidget(): Boolean {
-        val sharedPref = this.getSharedPreferences(COME_WIDGET, Context.MODE_PRIVATE)
-        return sharedPref.getBoolean(KEY_IS_FROM_WIDGET, false)
-    }
-
     private fun registerUser(){
         val email = binding.IEmail.text.toString().trim()
         val pass = binding.IPass.text.toString().trim()
@@ -66,6 +64,13 @@ class LoginActivity : AppCompatActivity() {
                 if (userResponse.isRegister){
                     saveUserSession()
                     Toast.makeText(this, userResponse.message, Toast.LENGTH_SHORT).show()
+
+                    if(fromWidget){
+                        updateWidget()
+                        finish()
+                    }else{
+                        goToHomeInventory()
+                    }
                 }
                 else{
                     Toast.makeText(this, userResponse.message, Toast.LENGTH_SHORT).show()
@@ -82,13 +87,40 @@ class LoginActivity : AppCompatActivity() {
             if (isLogin) {
                 saveUserSession()
                 Toast.makeText(this, "Login Exitoso", Toast.LENGTH_SHORT).show()
+                if(fromWidget){
+                    updateWidget()
+                    finish()
+                }else{
+                    goToHomeInventory()
+                }
             } else {
                 Toast.makeText(this, "Login incorrecto", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
+    private fun updateWidget(){
+        val intent = Intent(this, Widget::class.java)
+        intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+        sendBroadcast(intent)
+    }
+
+    private fun goToHomeInventory(){
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
+    }
+
     private fun setupListeners() {
+
+        binding.RegisterTV.setOnClickListener {
+            registerUser()
+        }
+
+        binding.btnLogin.setOnClickListener {
+            loginUser()
+        }
         binding.IEmail.doOnTextChanged { _, _, _, _ ->
             updateButtons()
         }
