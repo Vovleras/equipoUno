@@ -5,6 +5,8 @@ import android.text.SpannableString
 import android.text.style.RelativeSizeSpan
 
 import androidx.appcompat.app.AlertDialog
+import dagger.hilt.android.AndroidEntryPoint
+
 
 class DialogStandard {
     companion object{

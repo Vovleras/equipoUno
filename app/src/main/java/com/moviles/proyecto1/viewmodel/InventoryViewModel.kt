@@ -2,6 +2,7 @@ package com.moviles.proyecto1.viewmodel
 
 import android.app.Application
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import com.moviles.proyecto1.repository.InventoryRepository
 import androidx.lifecycle.LiveData
@@ -9,11 +10,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import com.moviles.proyecto1.model.Inventory
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import androidx.lifecycle.ViewModel
 
 
-class InventoryViewModel(application: Application): AndroidViewModel(application) {
-    val context = getApplication<Application>()
-    private val inventoryRepository = InventoryRepository(context)
+@HiltViewModel
+class InventoryViewModel @Inject constructor(
+    private val inventoryRepository: InventoryRepository
+): ViewModel()
+
+{
+    //al context = getApplication<Application>()
+    //private val inventoryRepository = InventoryRepository(context)
 
     private val _listInventory = MutableLiveData<MutableList<Inventory>>()
     val listInventory: LiveData<MutableList<Inventory>> get() = _listInventory
@@ -41,12 +50,12 @@ class InventoryViewModel(application: Application): AndroidViewModel(application
             try {
                 inventoryRepository.saveInventory(inventory)
                 _listInventory.value = inventoryRepository.getListInventory()
+
                 // En caso de que no se sincronice se agrega getListInventory() (igual en delete)
                 _progresState.value = false
             } catch (e: Exception) {
                 _progresState.value = false
             }
-            Log.d("AddProduct", "Producto guardado: $inventory")
         }
     }
 
@@ -77,23 +86,12 @@ class InventoryViewModel(application: Application): AndroidViewModel(application
     }
 
 
-    fun calculateTotalInventory(){
-        val inventary = _listInventory.value ?: mutableListOf()
-        var total = 00.0f
-        for (item in inventary) {
-            total += item.total?:0.0f
-        }
-        _total.postValue (total)
-    }
-
-    fun calculateTotalPerProduct(productID: Int, price: Float, quantity: Int) {
+    fun calculateTotalPerProduct(productID: String, price: Float, quantity: Int) {
         viewModelScope.launch {
             try {
                 val total = inventoryRepository.updateTotalPerProduct(productID, price, quantity)
                 _totalPerProduct.postValue(total)
-
             }catch (e: Exception   ){
-
                 _totalPerProduct.postValue(0.0f)
             }
 
@@ -120,6 +118,17 @@ class InventoryViewModel(application: Application): AndroidViewModel(application
     fun totalProduct(precio: Float, cantidad: Int): Float {
         val total = precio * cantidad
         return total
+    }
+
+    fun addProduct( codigo: Int, nombre: String, precio: Float, cantidad: Int, totalProd: Float) {
+        val inventario = Inventory(
+            id = codigo.toString(),
+            name = nombre,
+            price = precio,
+            quantity = cantidad,
+            total = totalProd
+        )
+        saveInventory(inventario)
     }
 
 }

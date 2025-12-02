@@ -14,8 +14,10 @@ import com.moviles.proyecto1.R
 import com.moviles.proyecto1.databinding.FragmentEditProductBinding
 import com.moviles.proyecto1.model.Inventory
 import com.moviles.proyecto1.viewmodel.InventoryViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.text.toFloat
 
+@AndroidEntryPoint
 class EditProduct : Fragment() {
   private lateinit var binding: FragmentEditProductBinding
   private val inventoryViewModel: InventoryViewModel by viewModels()
@@ -36,10 +38,22 @@ class EditProduct : Fragment() {
     return binding.root
   }
 
+
+  private fun getBundle(): Inventory? {
+    product = arguments?.getSerializable("clave", Inventory::class.java)
+    return product
+  }
+  private fun createBundleFromProduct(): Bundle {
+    val product = getBundle()
+    val bundle = Bundle()
+    bundle.putSerializable("clave", product)
+    return bundle
+  }
   private fun setupToolbar() {
     binding.contentToolbar.title = "Editar Producto"
     binding.contentToolbar.toolbar.setNavigationOnClickListener {
-      findNavController().navigate(R.id.action_editProduct_to_detailProduct)
+      val bundle  = createBundleFromProduct()
+      findNavController().navigate(R.id.action_editProduct_to_detailProduct, bundle)
     }
 
   }
@@ -48,7 +62,7 @@ class EditProduct : Fragment() {
     product = arguments?.getSerializable("clave", Inventory::class.java)
     product?.let { p ->
       isUpdating = true
-      binding.labelNumero.text = p.id.toString()
+      binding.labelNumero.text = p.id
       binding.editNombreArticulo.setText(p.name)
       binding.editPrecio.setText(p.price.toString())
       binding.editCantidad.setText(p.quantity.toString())
@@ -83,7 +97,7 @@ class EditProduct : Fragment() {
     fun Float.round2(): Float = "%.2f".format(this).replace(",", ".").toFloat()
 
     val updatedProduct = Inventory(
-      id = binding.labelNumero.text.toString().toInt(),
+      id = binding.labelNumero.text.toString(),
       name = binding.editNombreArticulo.text.toString().trim(),
       price = binding.editPrecio.text.toString().toFloat().round2(),
       quantity = binding.editCantidad.text.toString().toInt(),

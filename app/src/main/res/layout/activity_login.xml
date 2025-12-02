@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        tools:context=".view.LoginActivity">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <ImageView
+            android:id="@+id/IMicono"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/icono"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintBottom_toTopOf="@id/TFCorreo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline_first" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TFCorreo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:hint="@string/email"
+            android:padding="4dp"
+            android:textColorHint="@color/white"
+
+            app:boxBackgroundMode="outline"
+            app:boxStrokeColor="@color/textinput_stroke_colors"
+            app:counterOverflowTextColor="@color/white"
+            app:hintTextColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/TFPass"
+            app:layout_constraintTop_toBottomOf="@id/IMicono">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/IEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:maxLength="40"
+                android:textColor="@color/white" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TFPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="1dp"
+            android:hint="@string/password"
+            android:padding="4dp"
+            android:textColorHint="@color/white"
+
+            app:boxBackgroundMode="outline"
+            app:boxStrokeColor="@color/textinput_stroke_colors"
+            app:counterOverflowTextColor="@color/white"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/white"
+            app:hintTextColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/guideline_middle"
+            app:layout_constraintTop_toBottomOf="@id/TFCorreo"
+            app:boxStrokeErrorColor="@color/red"
+            app:errorIconTint="@color/red"
+            app:errorTextColor="@color/red"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/IPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberPassword"
+                android:maxLength="10"
+
+                android:textColor="@color/white" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="21dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginRight="21dp"
+            android:enabled="false"
+            android:textColor="@color/specific_gray"
+            android:text="@string/login"
+            app:backgroundTint="@color/red_orange"
+            app:cornerRadius="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/TFPass"
+            app:rippleColor="@color/white" />
+
+        <TextView
+            android:id="@+id/RegisterTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="@string/Registrarse"
+            android:textColor="@color/specific_gray"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnLogin"
+
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

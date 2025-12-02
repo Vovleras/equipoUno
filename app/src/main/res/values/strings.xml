@@ -25,4 +25,9 @@
     <string name="g_inv">Gestionar inventario</string>
     <string name="editar">Editar</string>
     <string name="id">Id:</string>
+    <string name="icono">icono</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="login">Login</string>
+    <string name="Registrarse">Registrarse</string>
 </resources>
