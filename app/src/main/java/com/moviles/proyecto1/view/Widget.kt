@@ -24,6 +24,8 @@ class Widget : AppWidgetProvider() {
         private const val BUTTON_SETTINGS = "button_settings"
         private var isVisible: Boolean = false
         private const val KEY_WIDGET_ID = "appWidgetId"
+        private const val PREFS_NAME = "user_session"
+        private const val KEY_IS_LOGGED_IN = "is_logged_in"
     }
 
     override fun onUpdate(
@@ -128,6 +130,15 @@ class Widget : AppWidgetProvider() {
     }
 
     private fun showButtonEye(context: Context) {
+        val sharedPref = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val isLogged = sharedPref.getBoolean(KEY_IS_LOGGED_IN, false)
+
+        if (!isLogged && !isVisible) {
+            val pendingIntent = openLoginFromWidgetPendingIntent(context)
+            pendingIntent.send()
+            return
+        }
+
         isVisible = !isVisible
 
         val appWidgetManager = AppWidgetManager.getInstance(context)
@@ -139,6 +150,21 @@ class Widget : AppWidgetProvider() {
             updateAppWidget(context, appWidgetManager, appWidgetId)
         }
     }
+
+    private fun openLoginFromWidgetPendingIntent(context: Context): PendingIntent {
+        val intent = Intent(context, LoginActivity::class.java)
+        intent.putExtra("from_widget", true)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
+        return PendingIntent.getActivity(
+            context,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+    }
+
+
 
 
 

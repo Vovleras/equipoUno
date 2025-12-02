@@ -3,20 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/login">
+    app:startDestination="@id/homeInventory">
 
-    <fragment
-        android:id="@+id/login"
-        android:name="com.moviles.proyecto1.view.fragment.Login"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_login_to_homeInventory"
-            app:destination="@id/homeInventory" />
-        <action
-            android:id="@+id/action_login_to_loginActivity"
-            app:destination="@id/loginActivity" />
-    </fragment>
     <fragment
         android:id="@+id/homeInventory"
         android:name="com.moviles.proyecto1.view.fragment.HomeInventory"
@@ -28,9 +16,6 @@
         <action
             android:id="@+id/action_homeInventory_to_addProduct"
             app:destination="@id/addProduct" />
-        <action
-            android:id="@+id/action_homeInventory_to_login"
-            app:destination="@id/login" />
     </fragment>
     <fragment
         android:id="@+id/addProduct"
@@ -67,8 +52,4 @@
           app:popUpTo="@id/homeInventory"
           app:popUpToInclusive="false"/>
     </fragment>
-    <activity
-        android:id="@+id/loginActivity"
-        android:name="com.moviles.proyecto1.view.LoginActivity"
-        android:label="LoginActivity" />
 </navigation>
