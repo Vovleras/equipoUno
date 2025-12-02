@@ -70,7 +70,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-
             android:layout_marginTop="5dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="1dp"
@@ -85,7 +84,11 @@
             app:endIconTint="@color/white"
             app:hintTextColor="@color/white"
             app:layout_constraintBottom_toTopOf="@id/guideline_middle"
-            app:layout_constraintTop_toBottomOf="@id/TFCorreo">
+            app:layout_constraintTop_toBottomOf="@id/TFCorreo"
+            app:boxStrokeErrorColor="@color/red"
+            app:errorIconTint="@color/red"
+            app:errorTextColor="@color/red"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/IPass"
@@ -93,6 +96,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="numberPassword"
                 android:maxLength="10"
+
                 android:textColor="@color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>

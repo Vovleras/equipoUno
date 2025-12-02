@@ -31,6 +31,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.IPass.doOnTextChanged { _, _, _, _ ->
             updateButtons()
+            changeBtnState()
         }
     }
 
@@ -47,19 +48,15 @@ class LoginActivity : AppCompatActivity() {
                 this,
                 if (areFilled) {
                     R.color.white
-
                 }
 
                 else R.color.specific_gray
-
             )
         )
         binding.btnLogin.setTypeface(
             binding.btnLogin.typeface,
             if (areFilled) Typeface.BOLD else Typeface.NORMAL
         )
-
-
 
         // Texto Register
         binding.RegisterTV.isEnabled = areFilled
@@ -69,5 +66,17 @@ class LoginActivity : AppCompatActivity() {
                 if (areFilled) R.color.white else R.color.specific_gray
             )
         )
+    }
+
+    private fun changeBtnState(){
+        val pass = binding.IPass.text?.toString()?.trim().orEmpty()
+
+        if (pass.length < 6){
+            binding.TFPass.error = "Mínimo 6 dígitos"
+
+        }
+        else{
+            binding.TFPass.error = null
+        }
     }
 }
