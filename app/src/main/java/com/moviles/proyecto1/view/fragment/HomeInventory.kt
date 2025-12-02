@@ -15,9 +15,11 @@ import com.moviles.proyecto1.model.Inventory
 import com.moviles.proyecto1.viewmodel.InventoryViewModel
 import com.moviles.proyecto1.view.adapter.RecyclerAdapter
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import com.moviles.proyecto1.view.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -30,15 +32,9 @@ class HomeInventory : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return if (verifySession()) {
             binding = FragmentHomeInventoryBinding.inflate(inflater, container, false)
             binding.lifecycleOwner = this
-            binding.root
-        } else {
-            Toast.makeText(context,"No ha iniciado sesión", Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_homeInventory_to_login)
-            null
-        }
+            return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -89,7 +85,11 @@ class HomeInventory : Fragment() {
             apply()
         }
         Toast.makeText(context,"Sesión Cerrada", Toast.LENGTH_SHORT).show()
-        findNavController().navigate(R.id.action_homeInventory_to_login)
+
+        val intent = Intent(requireContext(), LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     private fun verifySession(): Boolean {

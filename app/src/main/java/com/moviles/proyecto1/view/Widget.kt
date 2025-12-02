@@ -133,7 +133,7 @@ class Widget : AppWidgetProvider() {
         val sharedPref = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val isLogged = sharedPref.getBoolean(KEY_IS_LOGGED_IN, false)
 
-        if (!isLogged){
+        if (!isLogged && !isVisible) {
             val pendingIntent = openLoginFromWidgetPendingIntent(context)
             pendingIntent.send()
             return

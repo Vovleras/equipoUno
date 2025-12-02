@@ -37,6 +37,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         fromWidget = intent.getBooleanExtra("from_widget", false)
+        setupObservers()
         setupListeners()
     }
 
@@ -53,29 +54,32 @@ class LoginActivity : AppCompatActivity() {
         return sharedPref.getBoolean(KEY_IS_LOGGED_IN, false)
     }
 
+    private fun setupObservers(){
+        loginViewModel.isRegister.observe(this){ userResponse ->
+            if (userResponse.isRegister){
+                saveUserSession()
+                Toast.makeText(this, userResponse.message, Toast.LENGTH_SHORT).show()
+
+                if(fromWidget){
+                    updateWidget()
+                    finishAffinity()
+                }else{
+                    goToHomeInventory()
+                }
+            }
+            else{
+                Toast.makeText(this, userResponse.message, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     private fun registerUser(){
         val email = binding.IEmail.text.toString().trim()
         val pass = binding.IPass.text.toString().trim()
-        val userRequest = UserRequest(email, pass)
 
         if(email.isNotEmpty() && pass.isNotEmpty()){
+            val userRequest = UserRequest(email, pass)
             loginViewModel.registerUser(userRequest)
-            loginViewModel.isRegister.observe(this){ userResponse ->
-                if (userResponse.isRegister){
-                    saveUserSession()
-                    Toast.makeText(this, userResponse.message, Toast.LENGTH_SHORT).show()
-
-                    if(fromWidget){
-                        updateWidget()
-                        finish()
-                    }else{
-                        goToHomeInventory()
-                    }
-                }
-                else{
-                    Toast.makeText(this, userResponse.message, Toast.LENGTH_SHORT).show()
-                }
-            }
         }
     }
 
@@ -89,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Login Exitoso", Toast.LENGTH_SHORT).show()
                 if(fromWidget){
                     updateWidget()
-                    finish()
+                    finishAffinity()
                 }else{
                     goToHomeInventory()
                 }
@@ -100,9 +104,16 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun updateWidget(){
-        val intent = Intent(this, Widget::class.java)
-        intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
-        sendBroadcast(intent)
+        val appWidgetManager = AppWidgetManager.getInstance(this)
+        val ids = appWidgetManager.getAppWidgetIds(
+            android.content.ComponentName(this, Widget::class.java)
+        )
+
+        val intent = Intent(this, Widget::class.java).apply {
+            action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+            putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+        }
+            sendBroadcast(intent)
     }
 
     private fun goToHomeInventory(){
