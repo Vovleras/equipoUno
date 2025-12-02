@@ -151,6 +151,48 @@ class InventoryViewModelTest {
         assert(viewModel.progresState.value == false)
     }
 
+    /**
+     * Test para updateInventory()
+     * Verifica que se actualice un producto correctamente
+     */
+    @Test
+    fun `updateInventory - actualizar`() = runTest {
+        // Given
+        val inventory = Inventory(
+            id = "1",
+            name = "Producto Actualizado",
+            price = 150f,
+            quantity = 10,
+            total = 1500f
+        )
+
+        `when`(inventoryRepository.updateRepository(inventory)).thenReturn(true)
+
+        // When
+        viewModel.updateInventory(inventory)
+
+        // Then
+        verify(inventoryRepository).updateRepository(inventory)
+        assert(viewModel.progresState.value == false)
+    }
+
+    /**
+     * Test para updateInventory() cuando ocurre una excepción
+     */
+    @Test
+    fun `updateInventory - excepcion`() = runTest {
+        // Given
+        val inventory = Inventory(id = "1", name = "Test", price = 100f, quantity = 1)
+
+        `when`(inventoryRepository.updateRepository(inventory)).thenThrow(RuntimeException("Error"))
+
+        // When
+        viewModel.updateInventory(inventory)
+
+        // Then
+        assert(viewModel.progresState.value == false)
+    }
+
     
 }
 
