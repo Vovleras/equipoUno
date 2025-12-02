@@ -193,6 +193,197 @@ class InventoryViewModelTest {
         assert(viewModel.progresState.value == false)
     }
 
-    
+    /**
+     * Test para calculateTotalPerProduct()
+     * Verifica que se calcule el total por producto correctamente
+     */
+    @Test
+    fun `calculateTotalPerProduct - calcular y actualizar`() = runTest {
+        // Given
+        val productId = "1"
+        val price = 100f
+        val quantity = 5
+        val expectedTotal = 500f
+
+        `when`(inventoryRepository.updateTotalPerProduct(productId, price, quantity))
+            .thenReturn(expectedTotal)
+
+        // When
+        viewModel.calculateTotalPerProduct(productId, price, quantity)
+
+        // Then
+        verify(inventoryRepository).updateTotalPerProduct(productId, price, quantity)
+        assert(viewModel.totalPerProduct.value == expectedTotal)
+    }
+
+    /**
+     * Test para calculateTotalPerProduct() cuando ocurre una excepción
+     */
+    @Test
+    fun `calculateTotalPerProduct - excepcion`() = runTest {
+        // Given
+        val productId = "1"
+        val price = 100f
+        val quantity = 5
+
+        `when`(inventoryRepository.updateTotalPerProduct(productId, price, quantity))
+            .thenThrow(RuntimeException("Error"))
+
+        // When
+        viewModel.calculateTotalPerProduct(productId, price, quantity)
+
+        // Then
+        assert(viewModel.totalPerProduct.value == 0.0f)
+    }
+
+    /**
+     * Test para deleteProduct()
+     * Verifica que se elimine un producto correctamente
+     */
+    @Test
+    fun `deleteProduct - eliminar y actualizar`() = runTest {
+        // Given
+        val inventory = Inventory(
+            id = "1",
+            name = "Producto a Eliminar",
+            price = 100f,
+            quantity = 5,
+            total = 500f
+        )
+        val successMessage = "Producto a Eliminar eliminado correctamente"
+        val updatedList = mutableListOf<Inventory>()
+
+        `when`(inventoryRepository.deleteInventory(inventory)).thenReturn(successMessage)
+        `when`(inventoryRepository.getListInventory()).thenReturn(updatedList)
+
+        // When
+        viewModel.deleteProduct(inventory)
+
+        // Then
+        verify(inventoryRepository).deleteInventory(inventory)
+        verify(inventoryRepository).getListInventory()
+        assert(viewModel.deleteMessage.value == successMessage)
+        assert(viewModel.listInventory.value == updatedList)
+        assert(viewModel.progresState.value == false)
+    }
+
+    /**
+     * Test para deleteProduct() cuando ocurre una excepción
+     */
+    @Test
+    fun `deleteProduct - excepcion`() = runTest {
+        // Given
+        val inventory = Inventory(id = "1", name = "Test", price = 100f, quantity = 1)
+
+        `when`(inventoryRepository.deleteInventory(inventory)).thenThrow(RuntimeException("Error"))
+
+        // When
+        viewModel.deleteProduct(inventory)
+
+        // Then
+        assert(viewModel.deleteMessage.value == "Error al eliminar")
+        assert(viewModel.progresState.value == false)
+    }
+
+    /**
+     * Test para totalProduct()
+     * Verifica que se calcule el total correctamente
+     */
+    @Test
+    fun `totalProduct - calcular`() {
+        // Given
+        val precio = 100f
+        val cantidad = 5
+
+        // When
+        val result = viewModel.totalProduct(precio, cantidad)
+
+        // Then
+        assert(result == 500f)
+    }
+
+    /**
+     * Test para totalProduct() con valores cero
+     */
+    @Test
+    fun `totalProduct - cantidad cero`() {
+        // Given
+        val precio = 100f
+        val cantidad = 0
+
+        // When
+        val result = viewModel.totalProduct(precio, cantidad)
+
+        // Then
+        assert(result == 0f)
+    }
+
+    /**
+     * Test para totalProduct() con precio cero
+     */
+    @Test
+    fun `totalProduct - precio cero`() {
+        // Given
+        val precio = 0f
+        val cantidad = 5
+
+        // When
+        val result = viewModel.totalProduct(precio, cantidad)
+
+        // Then
+        assert(result == 0f)
+    }
+
+    /**
+     * Test para addProduct()
+     * Verifica que se agregue un producto correctamente llamando a saveInventory
+     */
+    @Test
+    fun `addProduct - crear item y guardar`() = runTest {
+        // Given
+        val codigo = 123
+        val nombre = "Nuevo Producto"
+        val precio = 250f
+        val cantidad = 8
+        val totalProd = 2000f
+
+        // Configurar stubs para los métodos del repositorio
+        `when`(inventoryRepository.saveInventory(anyObject())).thenReturn("123")
+        `when`(inventoryRepository.getListInventory()).thenReturn(mutableListOf())
+
+        // When
+        viewModel.addProduct(codigo, nombre, precio, cantidad, totalProd)
+
+        // Then - Verificar que se llamó saveInventory exactamente una vez
+        // y que se llamó getListInventory para actualizar la lista
+        verify(inventoryRepository, times(1)).saveInventory(anyObject())
+        verify(inventoryRepository, times(1)).getListInventory()
+
+        // Verificar que la lista se actualizó
+        assert(viewModel.listInventory.value != null)
+    }
+
+    /**
+     * Test para addProduct() con valores mínimos
+     */
+    @Test
+    fun `addProduct - valores minimos`() = runTest {
+        // Given
+        val codigo = 1
+        val nombre = "A"
+        val precio = 1f
+        val cantidad = 1
+        val totalProd = 1f
+
+        // Configurar stubs
+        `when`(inventoryRepository.saveInventory(anyObject())).thenReturn("1")
+        `when`(inventoryRepository.getListInventory()).thenReturn(mutableListOf())
+
+        // When
+        viewModel.addProduct(codigo, nombre, precio, cantidad, totalProd)
+
+        // Then - Verificar que se llamó saveInventory
+        verify(inventoryRepository, times(1)).saveInventory(anyObject())
+    }
 }
 
