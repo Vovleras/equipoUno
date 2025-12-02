@@ -193,6 +193,49 @@ class InventoryViewModelTest {
         assert(viewModel.progresState.value == false)
     }
 
+    /**
+     * Test para calculateTotalPerProduct()
+     * Verifica que se calcule el total por producto correctamente
+     */
+    @Test
+    fun `calculateTotalPerProduct - calcular y actualizar`() = runTest {
+        // Given
+        val productId = "1"
+        val price = 100f
+        val quantity = 5
+        val expectedTotal = 500f
+
+        `when`(inventoryRepository.updateTotalPerProduct(productId, price, quantity))
+            .thenReturn(expectedTotal)
+
+        // When
+        viewModel.calculateTotalPerProduct(productId, price, quantity)
+
+        // Then
+        verify(inventoryRepository).updateTotalPerProduct(productId, price, quantity)
+        assert(viewModel.totalPerProduct.value == expectedTotal)
+    }
+
+    /**
+     * Test para calculateTotalPerProduct() cuando ocurre una excepción
+     */
+    @Test
+    fun `calculateTotalPerProduct - excepcion`() = runTest {
+        // Given
+        val productId = "1"
+        val price = 100f
+        val quantity = 5
+
+        `when`(inventoryRepository.updateTotalPerProduct(productId, price, quantity))
+            .thenThrow(RuntimeException("Error"))
+
+        // When
+        viewModel.calculateTotalPerProduct(productId, price, quantity)
+
+        // Then
+        assert(viewModel.totalPerProduct.value == 0.0f)
+    }
+
     
 }
 
