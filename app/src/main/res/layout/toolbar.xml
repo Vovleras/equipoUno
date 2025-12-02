@@ -42,9 +42,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_margin="14dp"
+                    android:layout_margin="12dp"
                     android:contentDescription="@string/exit_button"
-                    android:src="@drawable/ic_close"
+                    android:src="@drawable/ic_logout"
                     android:background= "@color/light_gray"
                     android:visibility="@{exitIcon ? View.VISIBLE : View.GONE}" />
 
