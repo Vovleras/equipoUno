@@ -5,6 +5,7 @@ plugins {
   id("kotlin-kapt")
   id("com.google.dagger.hilt.android")
   id("com.google.gms.google-services")
+  id("jacoco")
 }
 
 android {
@@ -22,6 +23,9 @@ android {
   }
 
   buildTypes {
+    debug {
+      enableUnitTestCoverage = true
+    }
     release {
       isMinifyEnabled = false
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
@@ -110,6 +114,53 @@ dependencies {
 
   //testing
   testImplementation("junit:junit:4.13.2")
+  testImplementation("org.mockito:mockito-core:5.8.0")
+  testImplementation("org.mockito:mockito-inline:5.2.0")
+  testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+  testImplementation("androidx.arch.core:core-testing:2.2.0")
+  androidTestImplementation("androidx.test.ext:junit:1.1.5")
+  androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+}
+
+// Configuración de JaCoCo para cobertura de código
+tasks.register<JacocoReport>("jacocoTestReport") {
+  dependsOn("testDebugUnitTest")
+
+  reports {
+    xml.required.set(true)
+    html.required.set(true)
+    csv.required.set(false)
+  }
+
+  val fileFilter = listOf(
+    "**/R.class",
+    "**/R$*.class",
+    "**/BuildConfig.*",
+    "**/Manifest*.*",
+    "**/*Test*.*",
+    "android/**/*.*",
+    "**/databinding/**/*.*",
+    "**/hilt_aggregated_deps/**/*.*",
+    "**/*_Factory.class",
+    "**/*_MembersInjector.class",
+    "**/*Module.class",
+    "**/*Dagger*.*",
+    "**/*Hilt*.*"
+  )
+
+  val debugTree = fileTree("${project.buildDir}/tmp/kotlin-classes/debug") {
+    exclude(fileFilter)
+  }
+
+  val mainSrc = "${project.projectDir}/src/main/java"
+
+  sourceDirectories.setFrom(files(mainSrc))
+  classDirectories.setFrom(files(debugTree))
+  executionData.setFrom(fileTree(project.buildDir) {
+    include("jacoco/testDebugUnitTest.exec")
+  })
+}
   testImplementation("org.mockito:mockito-core:3.12.4")
   testImplementation("org.mockito:mockito-inline:3.12.4")
   testImplementation("org.mockito:mockito-android:3.12.4")

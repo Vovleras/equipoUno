@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 
 
-class InventoryRepository @Inject constructor(
+open class InventoryRepository @Inject constructor(
 
 )  {
     private val db = FirebaseFirestore.getInstance()
